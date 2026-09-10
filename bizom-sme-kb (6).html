@@ -4,455 +4,754 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SME Support Guide — Bizom</title>
+
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --navy:    #0D2137;
-  --navy2:   #1A3550;
-  --navy3:   #243F61;
-  --blue:    #2D6A9F;
-  --blueL:   #4A90C4;
-  --blueXL:  #C8DDE8;
-  --base:    #F0F4F8;
-  --base2:   #FFFFFF;
-  --base3:   #E8EFF5;
-  --warm:    #0D1F2D;
-  --warmD:   #2C4A60;
-  --muted:   #6B8CA8;
-  --green:   #1F6B45;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Calm Blue System — single hue, 5 tones */
+  --blue900: #0D2137;
+  --blue800: #1A3550;
+  --blue700: #2D5070;
+  --blue600: #4A7FA0;
+  --blue500: #6BA3C0;
+  --blue400: #9DC4D8;
+  --blue300: #C8DDE8;
+  --blue200: #E2EEF5;
+  --blue100: #F0F6FA;
+  --blue50:  #F8FBFD;
+
+  /* Semantic */
+  --base:    #F0F6FA;
+  --base2:   #F8FBFD;
+  --base3:   #E2EEF5;
+  --sidebar: #1A3550;
+  --accent:  #2D5070;
+  --accentD: #1A3550;
+  --accentL: #E2EEF5;
+  --navyD:   #0D2137;
+  --navyL:   #E2EEF5;
+  --navy:    #1A3550;
+  --amber:   #4A7FA0;
+  --amberD:  #2D5070;
+  --amberL:  #C8DDE8;
+  --warm:    #0D2137;
+  --warmD:   #2D5070;
+  --muted:   #6BA3C0;
+  --gold:    #4A7FA0;
+  --goldL:   #C8DDE8;
+  --red:     #A03040;
+  --redL:    #F5E8EB;
+  --green:   #2A6B55;
   --greenL:  #E0F0EB;
-  --red:     #A0322A;
-  --redL:    #FAEAE8;
-  --amber:   #8B6000;
-  --amberL:  #FEF4DC;
-  --border:  #C8D8E4;
-  --borderD: #A8C0D0;
-  --shadow:  0 1px 3px rgba(13,33,55,.08),0 2px 8px rgba(13,33,55,.06);
-  --shadowM: 0 4px 16px rgba(13,33,55,.12),0 2px 6px rgba(13,33,55,.08);
-}
-html{scroll-behavior:smooth;}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
-  background:var(--base);color:var(--warm);
-  min-height:100vh;display:flex;flex-direction:column;
-  font-size:13px;line-height:1.5;
+  --border:  rgba(45,80,112,.12);
+  --row:     rgba(45,80,112,.04);
+  --shadow:  0 1px 3px rgba(13,33,55,.06), 0 3px 10px rgba(13,33,55,.04);
 }
 
-/* ── TOPBAR */
-.topbar{
-  background:var(--navy);
-  border-bottom:3px solid var(--blueL);
-  padding:0 28px;height:56px;
-  display:flex;align-items:center;gap:20px;
-  position:sticky;top:0;z-index:100;
-  box-shadow:0 2px 12px rgba(0,0,0,.2);
-  width:100%;
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--base);
+  color: var(--warm);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.logo-mark{
-  width:30px;height:30px;background:var(--blueL);
-  border-radius:7px;display:flex;align-items:center;justify-content:center;
-  font-size:15px;font-weight:800;color:#fff;letter-spacing:-.5px;
-  border:2px solid rgba(255,255,255,.2);
+/* Contain app width on very large screens */
+.topbar, .layout { max-width: 1440px; margin-left: auto; margin-right: auto; width: 100%; }
+.topbar { position: sticky; top: 0; z-index: 100; }
+
+/* ── TOP BAR */
+.topbar {
+  background: #0D2137;
+  border-bottom: 3px solid #4A7FA0;
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(13,33,55,.25);
 }
-.logo-title{font-size:14px;font-weight:800;color:#fff;letter-spacing:.01em;}
-.logo-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:1px;}
-.search-wrap{flex:1;max-width:480px;position:relative;margin:0 auto;}
-.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4);pointer-events:none;}
-#search{
-  width:100%;background:rgba(255,255,255,.1);
-  border:1.5px solid rgba(255,255,255,.15);border-radius:8px;
-  padding:8px 12px 8px 36px;
-  font-family:inherit;font-size:13px;color:#fff;outline:none;
-  transition:border-color .15s,background .15s;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
 }
-#search::placeholder{color:rgba(255,255,255,.35);}
-#search:focus{border-color:var(--blueL);background:rgba(255,255,255,.15);}
-.tb-chip{
-  font-size:11px;font-weight:700;padding:3px 10px;
-  border-radius:20px;background:rgba(74,144,196,.25);
-  color:var(--blueXL);border:1px solid rgba(74,144,196,.3);
-  flex-shrink:0;margin-left:auto;
+.logo-mark {
+  width: 28px; height: 28px;
+  background: var(--blue500);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: #fff;
 }
+.logo-text {
+  font-size: 14px; font-weight: 800; color: #ffffff;
+  letter-spacing: .01em;
+}
+.logo-sub { font-size: 11px; color: rgba(255,255,255,.55); font-weight: 400; }
+
+.search-wrap {
+  flex: 1;
+  max-width: 520px;
+  position: relative;
+}
+.search-wrap svg {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); pointer-events: none;
+}
+#search {
+  width: 100%;
+  background: rgba(255,255,255,.12);
+  border: 1.5px solid rgba(255,255,255,.18);
+  border-radius: 8px;
+  padding: 8px 14px 8px 38px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 13px;
+  color: #fff;
+  outline: none;
+  transition: border-color .15s;
+}
+#search::placeholder { color: rgba(255,255,255,.4); }
+#search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(45,80,112,.12); }
+
+.tb-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.chip {
+  font-size: 11px; font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: rgba(45,80,112,.12);
+  color: var(--accent);
+}
+.last-updated { font-size: 11px; color: var(--muted); }
 
 /* ── LAYOUT */
-.app-shell{display:flex;flex:1;width:100%;}
+.layout {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 56px);
+}
 
 /* ── SIDEBAR */
-.sidebar{
-  width:220px;flex-shrink:0;
-  background:var(--navy2);
-  border-right:1px solid var(--navy3);
-  position:sticky;top:56px;height:calc(100vh - 56px);
-  overflow-y:auto;
-  display:flex;flex-direction:column;
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--blue800);
+  border-right: none;
+  border-top: 3px solid var(--blue600);
+  padding: 24px 0;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
 }
-.sidebar-top{
-  padding:16px 0 8px;
-  border-bottom:1px solid rgba(255,255,255,.06);
+.sidebar-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: rgba(255,255,255,.35);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 0 20px;
+  margin-bottom: 8px;
+  margin-top: 20px;
 }
-.nav-group-label{
-  font-size:9.5px;font-weight:800;color:rgba(255,255,255,.3);
-  letter-spacing:.1em;text-transform:uppercase;
-  padding:14px 18px 6px;
+.sidebar-label:first-child { margin-top: 0; }
+.sidebar::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--blue500) 0%, rgba(74,127,160,.15) 100%);
+  pointer-events: none;
 }
-.nav-item{
-  display:flex;align-items:center;gap:9px;
-  padding:9px 18px;font-size:12.5px;font-weight:500;
-  color:rgba(255,255,255,.6);cursor:pointer;
-  border-left:3px solid transparent;
-  transition:all .12s;text-decoration:none;
-  position:relative;
+.sidebar { position: relative; }
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 20px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,.6);
+  cursor: pointer;
+  transition: background .12s, color .12s;
+  border-left: 2px solid transparent;
+  text-decoration: none;
 }
-.nav-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.9);}
-.nav-item.active{
-  background:rgba(74,144,196,.15);
-  color:#fff;border-left-color:var(--blueL);
-  font-weight:600;
+.nav-item:hover { background: rgba(255,255,255,.06); color: rgba(255,255,255,.9); }
+.nav-item.active {
+  background: rgba(45,80,112,.08);
+  color: var(--accent);
+  border-left-color: var(--accent);
 }
-.nav-ic{font-size:14px;flex-shrink:0;width:18px;text-align:center;}
-.nav-count{
-  margin-left:auto;font-size:10px;font-weight:700;
-  background:rgba(74,144,196,.2);color:var(--blueXL);
-  padding:1px 7px;border-radius:10px;
+.nav-item .nav-ic { font-size: 13px; flex-shrink: 0; }
+.nav-count {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--blue300);
+  background: rgba(107,163,192,.2);
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-weight: 600;
 }
 
-/* ── MAIN */
-.main{
-  flex:1;overflow-y:auto;
-  padding:28px 40px 60px;
-  min-width:0;max-width:1180px;
+/* ── MAIN CONTENT */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 48px 80px;
+  max-width: 1100px;
+  min-width: 0;
 }
 
 /* ── SECTION */
-.section{display:none;}
-.section.visible{display:block;}
+.section { display: none; }
+.section.visible { display: block; }
 
-/* ── SECTION HEADER */
-.sec-hdr{
-  display:flex;align-items:center;gap:14px;
-  margin-bottom:20px;padding-bottom:14px;
-  border-bottom:2px solid var(--border);
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
 }
-.sec-hdr-icon{
-  width:40px;height:40px;border-radius:9px;
-  background:var(--navy2);display:flex;align-items:center;justify-content:center;
-  font-size:20px;flex-shrink:0;
-  border:1px solid var(--navy3);
+.section-header { border-bottom: 2px solid var(--blue200); padding-bottom: 14px; }
+.section-icon { font-size: 28px; line-height: 1; }
+.section-title { font-size: 26px; font-weight: 800; color: var(--warm); line-height: 1; }
+.section-desc { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.section-badge {
+  margin-left: auto;
+  font-size: 11px; font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--blue200);
+  color: var(--blue700);
+  flex-shrink: 0;
 }
-.sec-hdr-title{font-size:20px;font-weight:800;color:var(--warm);}
-.sec-hdr-desc{font-size:12px;color:var(--muted);margin-top:2px;}
-.sec-badge{
-  margin-left:auto;font-size:11px;font-weight:700;
-  padding:4px 11px;border-radius:20px;
-  background:var(--navy2);color:var(--blueXL);
-  border:1px solid var(--navy3);flex-shrink:0;
-}
-
-/* ── CALLOUT */
-.callout{
-  background:var(--blueXL);border-left:4px solid var(--blue);
-  border-radius:0 7px 7px 0;padding:11px 15px;
-  font-size:12.5px;color:var(--warmD);
-  margin-bottom:18px;line-height:1.6;
-}
-.callout.amber{background:var(--amberL);border-left-color:var(--amber);}
-.callout.green{background:var(--greenL);border-left-color:var(--green);}
 
 /* ── TABLE */
-.kb-table{width:100%;border-collapse:collapse;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-.kb-table thead th{
-  font-size:10px;font-weight:800;color:#fff;
-  text-transform:uppercase;letter-spacing:.07em;
-  padding:9px 14px;text-align:left;
-  background:var(--navy2);border-bottom:2px solid var(--blueL);
+.kb-table { width: 100%; border-collapse: collapse; table-layout: auto; }
+.kb-table thead th {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,.75);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 8px 14px;
+  text-align: left;
+  border-bottom: 3px solid var(--blue600);
+  background: var(--blue800);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
-.kb-table tbody tr{border-bottom:1px solid var(--border);transition:background .1s;}
-.kb-table tbody tr:last-child{border-bottom:none;}
-.kb-table tbody tr:hover{background:var(--base3);}
-.kb-table tbody td{
-  padding:10px 14px;font-size:12.5px;
-  color:var(--warmD);vertical-align:top;
+.kb-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .1s;
 }
-.kb-table tbody td:first-child{color:var(--warm);font-weight:600;}
-.code-val{
-  font-size:12px;font-weight:600;color:var(--navy2);
-  background:var(--base3);padding:2px 8px;
-  border-radius:4px;border:1px solid var(--border);
-  display:inline-block;
+.kb-table tbody tr:hover { background: var(--row); }
+.kb-table tbody td {
+  padding: 11px 14px;
+  font-size: 12.5px;
+  color: var(--warmD);
+  vertical-align: top;
+  line-height: 1.5;
 }
-.link-val{color:var(--blue);text-decoration:none;font-size:12px;}
-.link-val:hover{text-decoration:underline;}
-.no-link{color:var(--muted);font-style:italic;font-size:12px;}
-.note-val{color:var(--amber);font-weight:700;}
-.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-right:3px;}
-.tag-ui{background:var(--blueXL);color:var(--navy2);}
-.tag-mdms{background:var(--amberL);color:var(--amber);}
-.tag-both{background:var(--greenL);color:var(--green);}
-.tag-ext{background:var(--base3);color:var(--muted);border:1px solid var(--border);}
-.id-badge{font-size:14px;font-weight:800;color:var(--blue);}
+.kb-table tbody td:first-child { color: var(--warm); font-weight: 500; }
 
-/* ── ROW ACTIONS */
-.row-act-btn{
-  background:var(--base3);border:1px solid var(--border);
-  border-radius:5px;padding:3px 8px;font-size:11px;
-  color:var(--muted);cursor:pointer;transition:all .12s;
+.code-val {
+  font-size: 12.5px;
+  color: var(--blue800);
+  background: var(--blue200);
+  padding: 2px 8px;
+  border-radius: 4px;
+  word-break: break-all;
+  font-weight: 600;
 }
-.row-act-btn:hover{color:var(--warm);border-color:var(--blue);}
-.row-act-btn.del:hover{color:var(--red);border-color:var(--red);}
+.tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  margin-right: 4px;
+}
+.tag-ui   { background: rgba(45,80,112,.12); color: var(--accent); }
+.tag-mdms { background: rgba(232,160,32,.12); color: var(--gold); }
+.tag-both { background: rgba(56,193,114,.12); color: var(--green); }
+.tag-ext  { background: rgba(255,255,255,.06); color: var(--warmD); }
 
-/* ── ADD BUTTON */
-.add-row-btn{
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  margin-top:12px;padding:10px 16px;width:100%;
-  background:var(--blueXL);border:1.5px dashed var(--blue);
-  border-radius:7px;font-size:12.5px;font-weight:700;
-  color:var(--blue);cursor:pointer;transition:all .13s;
+.link-val {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 12px;
+  word-break: break-all;
 }
-.add-row-btn:hover{background:var(--base3);border-color:var(--navy2);color:var(--navy2);}
+.link-val:hover { text-decoration: underline; }
+.no-link { color: var(--muted); font-size: 12px; font-style: italic; }
 
-/* ── BUTTONS */
-.btn{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:8px 16px;border-radius:7px;border:none;
-  font-family:inherit;font-size:12.5px;font-weight:600;
-  cursor:pointer;transition:opacity .15s;
+.note-val {
+  font-size: 11.5px;
+  color: var(--gold);
+  font-style: italic;
 }
-.btn:hover{opacity:.85;}
-.btn-primary{background:var(--navy2);color:#fff;}
-.btn-ghost{background:var(--base3);color:var(--warmD);border:1px solid var(--border);}
-.btn-danger{background:var(--redL);color:var(--red);border:1px solid rgba(160,50,42,.2);}
-.btn-sm{padding:5px 11px;font-size:11.5px;}
 
-/* ── MODULE GRID */
-.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-.module-card{
-  background:var(--base2);border:1px solid var(--border);
-  border-radius:9px;padding:16px;
-  transition:box-shadow .15s,border-color .15s;
+/* ── MODULE CARDS */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
 }
-.module-card:hover{box-shadow:var(--shadow);border-color:var(--borderD);}
-.mc-name{font-size:13px;font-weight:700;color:var(--warm);margin-bottom:7px;}
-.mc-status{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:10px;display:inline-block;margin-bottom:10px;}
-.mc-status.linked{background:var(--greenL);color:var(--green);}
-.mc-status.pending{background:var(--base3);color:var(--muted);border:1px solid var(--border);}
-.mc-link{font-size:12px;color:var(--blue);text-decoration:none;}
-.mc-link:hover{text-decoration:underline;}
+.module-card {
+  background: var(--base2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  transition: border-color .15s, transform .15s;
+}
+.module-card:hover { border-color: rgba(45,80,112,.3); transform: translateY(-1px); }
+.mc-name { font-size: 13.5px; font-weight: 700; color: var(--warm); margin-bottom: 6px; }
+.mc-status {
+  font-size: 10.5px; font-weight: 600;
+  padding: 2px 8px; border-radius: 10px;
+  display: inline-block; margin-bottom: 12px;
+}
+.mc-status.linked { background: rgba(56,193,114,.12); color: var(--green); }
+.mc-status.pending { background: rgba(255,255,255,.06); color: var(--muted); }
+.mc-link { font-size: 11.5px; color: var(--accent); text-decoration: none; }
+.mc-link:hover { text-decoration: underline; }
 
-/* ── SOP LIST */
-.sop-list{display:flex;flex-direction:column;gap:10px;max-width:900px;}
-.sop-item{
-  background:var(--base2);border:1px solid var(--border);
-  border-radius:9px;padding:14px 18px;
-  display:flex;align-items:center;gap:14px;
-  transition:box-shadow .13s;
+/* ── SOP LINKS */
+.sop-list { display: flex; flex-direction: column; gap: 10px; max-width: 900px; }
+.sop-item {
+  background: var(--base2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color .13s;
 }
-.sop-item:hover{box-shadow:var(--shadow);}
-.sop-ic{font-size:22px;flex-shrink:0;}
-.sop-name{font-size:13.5px;font-weight:700;color:var(--warm);}
-.sop-desc{font-size:11.5px;color:var(--muted);margin-top:2px;}
-.sop-link{margin-left:auto;font-size:12px;color:var(--blue);text-decoration:none;flex-shrink:0;font-weight:600;}
-.sop-link:hover{text-decoration:underline;}
-.sop-pending{margin-left:auto;font-size:11px;color:var(--muted);font-style:italic;}
+.sop-item:hover { border-color: rgba(0,201,187,.25); }
+.sop-ic { font-size: 20px; flex-shrink: 0; }
+.sop-name { font-size: 13.5px; font-weight: 600; color: var(--warm); }
+.sop-desc { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.sop-link { margin-left: auto; font-size: 12px; color: var(--accent); text-decoration: none; flex-shrink: 0; }
+.sop-link:hover { text-decoration: underline; }
+.sop-pending { margin-left: auto; font-size: 11px; color: var(--muted); font-style: italic; }
+
+/* ── PENDING SECTION */
+.pending-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 900px;
+}
+.pending-card {
+  background: var(--base2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow .13s;
+}
+.pending-card:hover { box-shadow: var(--shadow); }
+.pending-card.done {
+  opacity: .55;
+  border-left: 3px solid var(--green);
+}
+.pending-card.done .pending-title { text-decoration: line-through; color: var(--muted); }
+.pending-top {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px;
+  cursor: pointer;
+}
+.pending-check {
+  width: 18px; height: 18px; flex-shrink: 0;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: transparent;
+  transition: all .15s;
+  cursor: pointer;
+  user-select: none;
+}
+.pending-card.done .pending-check {
+  background: var(--green); border-color: var(--green); color: #fff;
+}
+.pending-title {
+  flex: 1; font-size: 13px; font-weight: 500; color: var(--warm);
+}
+.pending-status-badge {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px;
+  flex-shrink: 0;
+}
+.pending-status-badge.todo { background: var(--blue100); color: var(--blue700); }
+.pending-status-badge.inprog { background: #FEF3DC; color: #8B6400; }
+.pending-status-badge.done-badge { background: var(--greenL); color: var(--green); }
+.pending-toggle { font-size: 11px; color: var(--muted); cursor: pointer; padding: 0 4px; }
+.pending-details {
+  display: none;
+  padding: 0 14px 12px 42px;
+  border-top: 1px solid var(--border);
+}
+.pending-details.open { display: block; }
+.pending-detail-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;
+}
+.pending-field label {
+  display: block; font-size: 10px; font-weight: 700;
+  color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px;
+}
+.pending-input {
+  width: 100%; background: var(--base3);
+  border: 1px solid var(--border); border-radius: 5px;
+  padding: 6px 9px; font-size: 12px;
+  color: var(--warm); font-family: inherit; outline: none;
+}
+.pending-input:focus { border-color: var(--accent); }
+.pending-link-row { margin-top: 8px; }
+.pending-save-btn {
+  margin-top: 10px; padding: 6px 14px;
+  background: var(--blue800); color: #fff;
+  border: none; border-radius: 6px;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+}
+.pending-save-btn:hover { opacity: .85; }
+.pending-stats {
+  display: flex; gap: 24px; align-items: center;
+  margin-bottom: 16px; padding: 14px 20px;
+  background: var(--base2); border-radius: 10px;
+  border: 1px solid var(--border);
+  max-width: 900px;
+}
+.pstat { text-align: center; }
+.pstat-num { font-size: 22px; font-weight: 800; color: var(--blue800); }
+.pstat-lbl { font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
 
 /* ── QUICK REF */
-.qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:900px;}
-.qr-card{
-  background:var(--base2);border:1px solid var(--border);
-  border-radius:9px;padding:14px 16px;
-  transition:box-shadow .13s;
+.qr-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-width: 900px;
 }
-.qr-card:hover{box-shadow:var(--shadow);}
-.qr-q{font-size:12.5px;font-weight:600;color:var(--warm);margin-bottom:6px;}
-.qr-a{font-size:12px;color:var(--muted);line-height:1.5;}
-.qr-a strong{color:var(--blue);font-weight:600;}
+.qr-card {
+  background: var(--base2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+.qr-q { font-size: 12px; font-weight: 600; color: var(--warm); margin-bottom: 6px; }
+.qr-a { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.qr-a strong { color: var(--accent); font-weight: 600; }
 
-/* ── PENDING */
-.pending-stats{
-  display:flex;gap:20px;align-items:center;
-  margin-bottom:16px;padding:14px 20px;
-  background:var(--base2);border-radius:9px;
-  border:1px solid var(--border);max-width:900px;
-  box-shadow:var(--shadow);
+/* ── SEARCH RESULTS */
+.search-result-count {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
 }
-.pstat{text-align:center;}
-.pstat-num{font-size:22px;font-weight:800;color:var(--navy2);}
-.pstat-lbl{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
-.pending-grid{display:flex;flex-direction:column;gap:6px;max-width:900px;}
-.pending-card{
-  background:var(--base2);border:1px solid var(--border);
-  border-radius:8px;overflow:hidden;transition:box-shadow .13s;
+.result-group-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin: 20px 0 8px;
 }
-.pending-card:hover{box-shadow:var(--shadow);}
-.pending-card.done{border-left:3px solid var(--green);opacity:.65;}
-.pending-card.done .pending-title{text-decoration:line-through;color:var(--muted);}
-.pending-top{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;}
-.pending-check{
-  width:18px;height:18px;border:2px solid var(--border);
-  border-radius:4px;display:flex;align-items:center;justify-content:center;
-  font-size:11px;color:transparent;cursor:pointer;flex-shrink:0;
-  transition:all .15s;
+.result-row {
+  background: var(--base2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: border-color .12s;
 }
-.pending-card.done .pending-check{background:var(--green);border-color:var(--green);color:#fff;}
-.pending-card.inprog .pending-check{background:var(--amberL);border-color:var(--amber);color:var(--amber);}
-.pending-title{flex:1;font-size:13px;font-weight:500;color:var(--warm);}
-.pending-status-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;flex-shrink:0;}
-.pending-status-badge.todo{background:var(--base3);color:var(--muted);border:1px solid var(--border);}
-.pending-status-badge.inprog{background:var(--amberL);color:var(--amber);}
-.pending-status-badge.done-badge{background:var(--greenL);color:var(--green);}
-.pending-toggle{font-size:11px;color:var(--muted);padding:0 4px;flex-shrink:0;}
-.pending-details{display:none;padding:0 14px 14px 42px;border-top:1px solid var(--border);background:var(--base);}
-.pending-details.open{display:block;}
-.pending-detail-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
-.pending-field label{display:block;font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
-.pending-input{
-  width:100%;background:var(--base2);border:1px solid var(--border);
-  border-radius:5px;padding:7px 10px;font-size:12px;
-  color:var(--warm);font-family:inherit;outline:none;
-  transition:border-color .15s;
-}
-.pending-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(45,106,159,.1);}
-.pending-link-row{margin-top:8px;}
-.pending-save-btn{
-  margin-top:10px;padding:7px 16px;
-  background:var(--navy2);color:#fff;border:none;
-  border-radius:6px;font-size:12px;font-weight:600;
-  cursor:pointer;font-family:inherit;
-}
-.pending-save-btn:hover{opacity:.85;}
+.result-row:hover { border-color: rgba(45,80,112,.3); }
+.result-label { font-size: 13px; font-weight: 600; color: var(--warm); margin-bottom: 3px; }
+.result-value { font-size: 12px; color: var(--muted); }
+.result-section { font-size: 10px; color: var(--accent); margin-bottom: 4px; font-weight: 600; letter-spacing: .05em; }
+mark { background: rgba(45,80,112,.2); color: var(--accent); padding: 0 2px; border-radius: 2px; }
 
-/* ── UPLOADS */
-.upload-dz{
-  border:2px dashed var(--borderD);border-radius:9px;
-  padding:32px 20px;text-align:center;cursor:pointer;
-  background:var(--base3);transition:all .15s;
+/* ── CALLOUT */
+.callout {
+  background: var(--blue100);
+  border-left: 3px solid var(--blue600);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  font-size: 12.5px;
+  color: var(--warmD);
+  margin-bottom: 20px;
+  line-height: 1.6;
+  max-width: 900px;
 }
-.upload-dz:hover,.upload-dz.drag{border-color:var(--blue);background:var(--blueXL);}
-.upload-dz input[type=file]{display:none;}
-.upload-dz-icon{font-size:32px;margin-bottom:10px;}
-.upload-dz-label{font-size:13.5px;font-weight:700;color:var(--warm);margin-bottom:4px;}
-.upload-dz-sub{font-size:12px;color:var(--muted);}
-.file-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;}
-.file-chip{
-  display:flex;align-items:center;gap:6px;
-  background:var(--blueXL);border:1px solid var(--borderD);
-  border-radius:20px;padding:4px 10px 4px 8px;
-  font-size:11.5px;color:var(--warmD);
+.callout.gold {
+  background: rgba(232,160,32,.06);
+  border-left-color: var(--gold);
 }
-.file-chip-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:0;}
-.file-chip-del:hover{color:var(--red);}
 
-/* ── FORM */
-.form-group{margin-bottom:14px;}
-.form-label{display:block;font-size:10px;font-weight:800;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;}
-.form-input,.form-select,.form-textarea{
-  width:100%;background:var(--base2);border:1.5px solid var(--border);
-  border-radius:7px;padding:8px 12px;font-family:inherit;
-  font-size:13px;color:var(--warm);outline:none;transition:border-color .15s;
-}
-.form-textarea{min-height:70px;resize:vertical;}
-.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(45,106,159,.1);}
-
-/* ── MODAL */
-.modal-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.4);z-index:200;
-  align-items:center;justify-content:center;
-}
-.modal-overlay.open{display:flex;}
-.modal-box{
-  background:var(--base2);border:1px solid var(--border);
-  border-radius:12px;padding:26px 30px;width:520px;
-  max-width:95vw;max-height:88vh;overflow-y:auto;
-  box-shadow:var(--shadowM);
-}
-.modal-title{font-size:15px;font-weight:800;color:var(--warm);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
-.modal-close-btn{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;}
-.modal-close-btn:hover{color:var(--warm);}
-
-/* ── TOAST */
-.toast{
-  position:fixed;bottom:24px;right:24px;z-index:999;
-  background:var(--green);color:#fff;padding:11px 18px;
-  border-radius:8px;font-size:13px;font-weight:600;
-  box-shadow:var(--shadowM);opacity:0;transform:translateY(20px);
-  transition:all .25s;pointer-events:none;
-}
-.toast.show{opacity:1;transform:translateY(0);}
-
-/* ── HOME */
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:640px;margin-bottom:32px;}
-.stat-card{
-  background:var(--base2);border:1px solid var(--border);
-  border-radius:9px;padding:18px;cursor:pointer;
-  transition:box-shadow .13s,border-color .13s;
-}
-.stat-card:hover{box-shadow:var(--shadow);border-color:var(--borderD);}
-.stat-num{font-size:28px;font-weight:800;color:var(--navy2);margin-bottom:4px;}
-.stat-label{font-size:12px;font-weight:700;color:var(--warm);}
-.stat-sub{font-size:11px;color:var(--muted);margin-top:2px;}
-
-/* ── SEARCH */
-.search-result-count{font-size:12px;color:var(--muted);margin-bottom:14px;}
-.result-group-title{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin:16px 0 7px;}
-.result-row{
-  background:var(--base2);border:1px solid var(--border);
-  border-radius:7px;padding:12px 16px;margin-bottom:6px;
-  cursor:pointer;transition:border-color .12s,box-shadow .12s;
-}
-.result-row:hover{border-color:var(--blue);box-shadow:var(--shadow);}
-.result-section{font-size:10px;color:var(--blue);font-weight:700;letter-spacing:.04em;margin-bottom:3px;}
-.result-label{font-size:13px;font-weight:600;color:var(--warm);margin-bottom:2px;}
-.result-value{font-size:12px;color:var(--muted);}
-mark{background:rgba(45,106,159,.15);color:var(--blue);padding:0 2px;border-radius:2px;}
-.empty{text-align:center;padding:60px 20px;color:var(--muted);}
-.empty-ic{font-size:40px;margin-bottom:12px;}
-.empty-t{font-size:14px;font-weight:600;color:var(--warmD);}
+/* ── EMPTY STATE */
+.empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+.empty-ic { font-size: 40px; margin-bottom: 12px; }
+.empty-t { font-size: 14px; font-weight: 600; color: var(--warmD); }
 
 /* ── SCROLLBAR */
-::-webkit-scrollbar{width:5px;height:5px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
-::-webkit-scrollbar-thumb:hover{background:var(--borderD);}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--base3); border-radius: 3px; }
+
+/* ── NO RESULTS on filter */
+.row-hidden { display: none; }
+
+/* ── MODAL OVERLAY */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--base3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 32px;
+  width: 520px;
+  max-width: 95vw;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+}
+.modal-title {
+  font-size: 16px; font-weight: 800; color: var(--warm);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.modal-close-btn {
+  margin-left: auto; background: none; border: none;
+  color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1;
+}
+.modal-close-btn:hover { color: var(--warm); }
+
+/* ── FORM */
+.form-group { margin-bottom: 16px; }
+.form-label {
+  display: block; font-size: 11px; font-weight: 700;
+  color: var(--muted); letter-spacing: .06em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  background: var(--base2);
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  padding: 9px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--warm);
+  outline: none;
+  transition: border-color .15s;
+}
+.form-textarea { min-height: 72px; resize: vertical; }
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(45,80,112,.1);
+}
+.form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+.form-select option { background: var(--base2); color: var(--warm); }
+
+/* ── BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: 7px; border: none;
+  font-family: inherit; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: opacity .15s, transform .1s;
+}
+.btn:hover { opacity: .88; }
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--blue800); color: #fff; }
+.btn-ghost {
+  background: var(--base2); color: var(--warmD);
+  border: 1px solid var(--border);
+}
+.btn-danger { background: rgba(192,57,43,.12); color: var(--red); border: 1px solid rgba(192,57,43,.2); }
+.btn-sm { padding: 5px 11px; font-size: 11.5px; }
+
+/* ── ADD ROW BUTTON */
+.add-row-btn {
+  display: flex; align-items: center; gap: 7px;
+  margin-top: 14px; padding: 9px 14px;
+  background: var(--blue100);
+  border: 1.5px dashed var(--blue400);
+  border-radius: 7px;
+  font-size: 12.5px; font-weight: 600; color: var(--blue700);
+  cursor: pointer; width: 100%;
+  transition: background .13s, border-color .13s;
+}
+.add-row-btn:hover { background: var(--blue200); border-color: var(--blue600); }
+
+/* ── INLINE ROW ACTIONS (hover) */
+.kb-table tbody tr { position: relative; }
+.row-actions {
+  display: none;
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  gap: 4px;
+}
+.kb-table tbody tr:hover .row-actions { display: flex; }
+.row-act-btn {
+  background: var(--base3); border: 1px solid var(--border);
+  border-radius: 5px; padding: 3px 8px;
+  font-size: 11px; color: var(--muted); cursor: pointer;
+  transition: color .12s, border-color .12s;
+}
+.row-act-btn:hover { color: var(--warm); border-color: var(--accent); }
+.row-act-btn.del:hover { color: var(--red); border-color: var(--red); }
+
+/* ── UPLOAD DROP ZONE */
+.upload-dz {
+  border: 2px dashed rgba(45,80,112,.3);
+  border-radius: 10px;
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  background: rgba(45,80,112,.03);
+}
+.upload-dz:hover, .upload-dz.drag { border-color: var(--accent); background: rgba(45,80,112,.07); }
+.upload-dz-icon { font-size: 32px; margin-bottom: 10px; }
+.upload-dz-label { font-size: 13.5px; font-weight: 600; color: var(--warm); margin-bottom: 4px; }
+.upload-dz-sub { font-size: 12px; color: var(--muted); }
+.upload-dz input[type=file] { display: none; }
+
+/* ── UPLOADED FILE CHIPS */
+.file-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.file-chip {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(45,80,112,.1); border: 1px solid rgba(45,80,112,.2);
+  border-radius: 20px; padding: 4px 10px 4px 8px;
+  font-size: 11.5px; color: var(--accent);
+}
+.file-chip-del { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 13px; padding: 0; line-height: 1; }
+.file-chip-del:hover { color: var(--red); }
+
+/* ── LINK CHIP */
+.link-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(45,80,112,.08); border: 1px solid rgba(45,80,112,.2);
+  border-radius: 6px; padding: 3px 9px;
+  font-size: 12px; color: var(--accent); text-decoration: none;
+}
+.link-chip:hover { background: rgba(45,80,112,.15); }
+
+/* ── TOAST */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 999;
+  background: var(--green); color: #fff;
+  padding: 11px 18px; border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  transform: translateY(60px); opacity: 0;
+  transition: transform .25s, opacity .25s;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── SECTION TOOLBAR */
+.section-toolbar {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.section-toolbar-right { margin-left: auto; display: flex; gap: 8px; }
+
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
+<!-- TOP BAR -->
 <div class="topbar">
   <div class="logo">
     <div class="logo-mark">B</div>
     <div>
-      <div class="logo-title">SME Support Guide</div>
-      <div class="logo-sub">Bizom SME BU</div>
+      <div class="logo-text" style="color:#fff;">Bizom SME BU</div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.65);">SME Support Guide</div>
     </div>
   </div>
+
   <div class="search-wrap">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
     <input id="search" type="text" placeholder="Search settings, URLs, report IDs, modules…" autocomplete="off">
   </div>
-  <span class="tb-chip">Bizom SME BU</span>
+
+  <div class="tb-right">
+    <span class="chip" style="background:rgba(107,163,192,.2);color:#C8DDE8;">Bizom SME BU</span>
+  </div>
 </div>
 
-<!-- APP SHELL -->
-<div class="app-shell">
+<!-- LAYOUT -->
+<div class="layout">
 
   <!-- SIDEBAR -->
   <nav class="sidebar">
-    <div class="nav-group-label">Reference</div>
-    <a class="nav-item active" data-section="home" onclick="showSection('home',this)"><span class="nav-ic">🏠</span> Home</a>
-    <a class="nav-item" data-section="settings" onclick="showSection('settings',this)"><span class="nav-ic">⚙️</span> Settings<span class="nav-count">22</span></a>
-    <a class="nav-item" data-section="urls" onclick="showSection('urls',this)"><span class="nav-ic">🔗</span> URLs<span class="nav-count">39</span></a>
-    <a class="nav-item" data-section="reports" onclick="showSection('reports',this)"><span class="nav-ic">📋</span> Reports<span class="nav-count">33</span></a>
-    <div class="nav-group-label">Guides</div>
-    <a class="nav-item" data-section="mdms" onclick="showSection('mdms',this)"><span class="nav-ic">🗂</span> UI &amp; MDMS<span class="nav-count">19</span></a>
-    <a class="nav-item" data-section="modules" onclick="showSection('modules',this)"><span class="nav-ic">🧩</span> Modules<span class="nav-count">10</span></a>
-    <a class="nav-item" data-section="sops" onclick="showSection('sops',this)"><span class="nav-ic">📄</span> SOPs</a>
-    <div class="nav-group-label">Tools</div>
-    <a class="nav-item" data-section="quickref" onclick="showSection('quickref',this)"><span class="nav-ic">⚡</span> Quick Ref</a>
-    <a class="nav-item" data-section="pending" onclick="showSection('pending',this)"><span class="nav-ic">🕐</span> Pending<span class="nav-count" id="pending-nav-count">22</span></a>
-    <div class="nav-group-label">Manage</div>
-    <a class="nav-item" data-section="uploads" onclick="showSection('uploads',this)"><span class="nav-ic">📎</span> Uploads &amp; Links</a>
+    <div class="sidebar-label">Reference</div>
+    <a class="nav-item active" data-section="home" onclick="showSection('home',this)">
+      <span class="nav-ic">🏠</span> Home
+    </a>
+    <a class="nav-item" data-section="settings" onclick="showSection('settings',this)">
+      <span class="nav-ic">⚙️</span> Settings
+      <span class="nav-count">22</span>
+    </a>
+    <a class="nav-item" data-section="urls" onclick="showSection('urls',this)">
+      <span class="nav-ic">🔗</span> URLs
+      <span class="nav-count">39</span>
+    </a>
+    <a class="nav-item" data-section="reports" onclick="showSection('reports',this)">
+      <span class="nav-ic">📋</span> Reports
+      <span class="nav-count">31</span>
+    </a>
+    <div class="sidebar-label">Guides</div>
+    <a class="nav-item" data-section="mdms" onclick="showSection('mdms',this)">
+      <span class="nav-ic">🗂</span> UI & MDMS
+      <span class="nav-count">19</span>
+    </a>
+    <a class="nav-item" data-section="modules" onclick="showSection('modules',this)">
+      <span class="nav-ic">🧩</span> Modules
+      <span class="nav-count">10</span>
+    </a>
+    <a class="nav-item" data-section="sops" onclick="showSection('sops',this)">
+      <span class="nav-ic">📄</span> SOPs
+    </a>
+
+    <div class="sidebar-label">Tools</div>
+    <a class="nav-item" data-section="quickref" onclick="showSection('quickref',this)">
+      <span class="nav-ic">⚡</span> Quick Ref
+    </a>
+    <a class="nav-item" data-section="pending" onclick="showSection('pending',this)">
+      <span class="nav-ic">🕐</span> Pending
+      <span class="nav-count">20</span>
+    </a>
+    <div class="sidebar-label">Manage</div>
+    <a class="nav-item" data-section="uploads" onclick="showSection('uploads',this)">
+      <span class="nav-ic">📎</span> Uploads & Links
+    </a>
   </nav>
 
   <!-- MAIN -->
@@ -460,72 +759,174 @@ mark{background:rgba(45,106,159,.15);color:var(--blue);padding:0 2px;border-radi
 
     <!-- HOME -->
     <div class="section visible" id="sec-home">
-      <div style="margin-bottom:32px">
-        <div style="font-size:11px;font-weight:800;color:var(--blue);letter-spacing:.1em;margin-bottom:8px">BIZOM SME BU</div>
-        <div style="font-size:32px;font-weight:800;line-height:1.2;margin-bottom:10px;color:var(--warm)">Your complete support guide<br>for everything Bizom.</div>
-        <div style="font-size:13.5px;color:var(--muted);max-width:520px;line-height:1.7">Settings keys, portal URLs, report IDs, MDMS guides, module decks, and SOPs — in one place. Use the search bar or left nav to find what you need in seconds.</div>
+      <div style="margin-bottom:40px">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.1em;margin-bottom:10px">BIZOM SME BU</div>
+        <div style="font-size:36px;font-weight:800;line-height:1.1;margin-bottom:12px">Your complete support guide<br>for everything Bizom.</div>
+        <div style="font-size:14px;color:var(--muted);max-width:560px;line-height:1.7;">Settings keys, portal URLs, report IDs, MDMS guides, module decks, and SOPs — in one place. Use the search bar or the left nav to find what you need in seconds.</div>
       </div>
-      <div class="stat-grid">
-        <div class="stat-card" onclick="showSection('settings',document.querySelector('[data-section=settings]'))"><div class="stat-num">22</div><div class="stat-label">Settings</div><div class="stat-sub">Config keys</div></div>
-        <div class="stat-card" onclick="showSection('urls',document.querySelector('[data-section=urls]'))"><div class="stat-num" style="color:var(--blue)">39</div><div class="stat-label">URLs</div><div class="stat-sub">Portal paths</div></div>
-        <div class="stat-card" onclick="showSection('reports',document.querySelector('[data-section=reports]'))"><div class="stat-num" style="color:var(--green)">33</div><div class="stat-label">Reports</div><div class="stat-sub">IDs to map</div></div>
-        <div class="stat-card" onclick="showSection('modules',document.querySelector('[data-section=modules]'))"><div class="stat-num">10</div><div class="stat-label">Modules</div><div class="stat-sub">Pitch decks</div></div>
+
+      <!-- Quick stats -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:36px;max-width:640px">
+        <div style="background:var(--base2);border:1px solid var(--border);border-radius:10px;padding:18px;cursor:pointer" onclick="showSection('settings',document.querySelector('[data-section=settings]'))">
+          <div style="font-size:28px;font-weight:800;color:var(--blue800);margin-bottom:4px">22</div>
+          <div style="font-size:12px;font-weight:600;color:var(--warm)">Settings</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">Configuration keys</div>
+        </div>
+        <div style="background:var(--base2);border:1px solid var(--border);border-radius:10px;padding:18px;cursor:pointer" onclick="showSection('urls',document.querySelector('[data-section=urls]'))">
+          <div style="font-size:28px;font-weight:800;color:var(--blue600);margin-bottom:4px">39</div>
+          <div style="font-size:12px;font-weight:600;color:var(--warm)">URLs</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">Portal paths & tools</div>
+        </div>
+        <div style="background:var(--base2);border:1px solid var(--border);border-radius:10px;padding:18px;cursor:pointer" onclick="showSection('reports',document.querySelector('[data-section=reports]'))">
+          <div style="font-size:28px;font-weight:800;color:var(--green);margin-bottom:4px">9</div>
+          <div style="font-size:12px;font-weight:600;color:var(--warm)">Reports</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">IDs to map</div>
+        </div>
+        <div style="background:var(--base2);border:1px solid var(--border);border-radius:10px;padding:18px;cursor:pointer" onclick="showSection('modules',document.querySelector('[data-section=modules]'))">
+          <div style="font-size:28px;font-weight:800;color:var(--accent);margin-bottom:4px">10</div>
+          <div style="font-size:12px;font-weight:600;color:var(--warm)">Modules</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">Pitch decks</div>
+        </div>
       </div>
-      <div style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px">Common Lookups</div>
-      <div class="qr-grid" style="max-width:800px">
-        <div class="qr-card" onclick="showSection('settings',document.querySelector('[data-section=settings]'))"><div class="qr-q">Block users after EOD submission</div><div class="qr-a"><strong>blockTransactionAfterEOD</strong> → Value 1</div></div>
-        <div class="qr-card" onclick="showSection('urls',document.querySelector('[data-section=urls]'))"><div class="qr-q">Move outlets to a different beat</div><div class="qr-a">URLs → <strong>beats/moveoutlets</strong></div></div>
-        <div class="qr-card" onclick="showSection('reports',document.querySelector('[data-section=reports]'))"><div class="qr-q">Map User Performance Report</div><div class="qr-a">Reports → User Performance → ID <strong>8054</strong></div></div>
-        <div class="qr-card" onclick="showSection('mdms',document.querySelector('[data-section=mdms]'))"><div class="qr-q">Add SKUs in bulk</div><div class="qr-a">UI &amp; MDMS → <strong>Add SKUs</strong> → Drive folder</div></div>
-        <div class="qr-card" onclick="showSection('sops',document.querySelector('[data-section=sops]'))"><div class="qr-q">New client going live</div><div class="qr-a">SOPs → <strong>Go-Live SOP</strong> → Open content</div></div>
-        <div class="qr-card" onclick="showSection('modules',document.querySelector('[data-section=modules]'))"><div class="qr-q">Client interested in DMS</div><div class="qr-a">Modules → <strong>DMS</strong> → Open deck</div></div>
+
+      <!-- Quick ref -->
+      <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px">Common lookups</div>
+      <div class="qr-grid">
+        <div class="qr-card" style="cursor:pointer" onclick="showSection('settings',document.querySelector('[data-section=settings]'))">
+          <div class="qr-q">Client asks: "How do I block the user after EOD?"</div>
+          <div class="qr-a">Settings → <strong>blockTransactionAfterEOD</strong> → Value 1</div>
+        </div>
+        <div class="qr-card" style="cursor:pointer" onclick="showSection('urls',document.querySelector('[data-section=urls]'))">
+          <div class="qr-q">Need to move outlets between beats</div>
+          <div class="qr-a">URLs → <strong>beats/moveoutlets</strong></div>
+        </div>
+        <div class="qr-card" style="cursor:pointer" onclick="showSection('reports',document.querySelector('[data-section=reports]'))">
+          <div class="qr-q">Map User Performance Report to a company</div>
+          <div class="qr-a">Reports → User Performance → ID <strong>8054</strong></div>
+        </div>
+        <div class="qr-card" style="cursor:pointer" onclick="showSection('mdms',document.querySelector('[data-section=mdms]'))">
+          <div class="qr-q">Client needs to add SKUs in bulk</div>
+          <div class="qr-a">UI & MDMS → <strong>Add SKUs</strong> → Drive folder link</div>
+        </div>
+        <div class="qr-card" style="cursor:pointer" onclick="showSection('sops',document.querySelector('[data-section=sops]'))">
+          <div class="qr-q">New client going live this week</div>
+          <div class="qr-a">SOPs → <strong>New Go-Live SOP</strong> + Implementation Plan</div>
+        </div>
+        <div class="qr-card" style="cursor:pointer" onclick="showSection('modules',document.querySelector('[data-section=modules]'))">
+          <div class="qr-q">Client interested in DMS module</div>
+          <div class="qr-a">Modules → <strong>DMS</strong> → Open pitch deck</div>
+        </div>
       </div>
     </div>
 
     <!-- SETTINGS -->
     <div class="section" id="sec-settings">
-      <div class="sec-hdr"><div class="sec-hdr-icon">⚙️</div><div><div class="sec-hdr-title">Settings</div><div class="sec-hdr-desc">Backend configuration keys — copy the key name into Bizom settings panel</div></div><div class="sec-badge">22 settings</div></div>
-      <div class="callout">Find the <strong>Use Case</strong> your client needs → copy the <strong>Setting Key</strong> → paste into backend settings panel.</div>
-      <table class="kb-table"><thead><tr><th style="width:24%">Use Case</th><th style="width:26%">Setting Key</th><th>What It Does</th><th style="width:8%">Value</th><th style="width:5%"></th></tr></thead><tbody id="settings-tbody"></tbody></table>
+      <div class="section-header">
+        <div class="section-icon">⚙️</div>
+        <div>
+          <div class="section-title">Settings</div>
+          <div class="section-desc">Backend configuration keys — copy the key name into the Bizom settings panel</div>
+        </div>
+        <div class="section-badge">22 settings</div>
+      </div>
+      <div class="callout">Find the <strong>Use Case</strong> your client is asking about → copy the <strong>Setting Key</strong> → paste into the backend settings panel. Note column shows any required value.</div>
+      <table class="kb-table">
+        <thead>
+          <tr><th style="width:26%">Use Case</th><th style="width:28%">Setting Key</th><th>What It Does</th><th style="width:10%">Value</th></tr>
+        </thead>
+        <tbody id="settings-tbody">
+        </tbody>
+      </table>
     </div>
 
     <!-- URLS -->
     <div class="section" id="sec-urls">
-      <div class="sec-hdr"><div class="sec-hdr-icon">🔗</div><div><div class="sec-hdr-title">URL Quick Reference</div><div class="sec-hdr-desc">Internal: append to <strong>https://yourcompany.bizom.in/</strong> — External: full URL shown</div></div><div class="sec-badge">39 URLs</div></div>
-      <table class="kb-table"><thead><tr><th style="width:36%">Feature / Page</th><th>URL Path</th><th style="width:12%">Type</th><th style="width:5%"></th></tr></thead><tbody id="urls-tbody"></tbody></table>
+      <div class="section-header">
+        <div class="section-icon">🔗</div>
+        <div>
+          <div class="section-title">URL Quick Reference</div>
+          <div class="section-desc">Internal: append to <code style="color:var(--accent);font-size:11px">https://yourcompany.bizom.in/</code> · External: full URL shown</div>
+        </div>
+        <div class="section-badge">39 URLs</div>
+      </div>
+      <table class="kb-table">
+        <thead>
+          <tr><th style="width:35%">Feature / Page</th><th>URL Path</th><th style="width:12%">Type</th></tr>
+        </thead>
+        <tbody id="urls-tbody">
+        </tbody>
+      </table>
     </div>
 
     <!-- REPORTS -->
     <div class="section" id="sec-reports">
-      <div class="sec-hdr"><div class="sec-hdr-icon">📋</div><div><div class="sec-hdr-title">Report IDs</div><div class="sec-hdr-desc">Copy the Report ID → go to mapping URL → add to your company</div></div><div class="sec-badge">33 reports</div></div>
-      <div class="callout amber"><strong>Standard:</strong> https://reports.bizom.in/companyreports/manageCompanyReports<br><strong>HYD Server:</strong> https://reportshyd.bizom.in/companyreports/manageCompanyReports</div>
-      <table class="kb-table"><thead><tr><th style="width:20%">Module</th><th style="width:42%">Report Name</th><th style="width:14%">Report ID</th><th>Notes</th><th style="width:5%"></th></tr></thead><tbody id="reports-tbody"></tbody></table>
+      <div class="section-header">
+        <div class="section-icon">📋</div>
+        <div>
+          <div class="section-title">Report IDs</div>
+          <div class="section-desc">Copy the Report ID → go to the mapping URL → add to your company</div>
+        </div>
+        <div class="section-badge">31 reports</div>
+      </div>
+      <div class="callout gold">
+        <strong>Standard:</strong> https://reports.bizom.in/companyreports/manageCompanyReports<br>
+        <strong>HYD Server:</strong> https://reportshyd.bizom.in/companyreports/manageCompanyReports
+      </div>
+      <table class="kb-table">
+        <thead>
+          <tr><th style="width:22%">Module</th><th style="width:40%">Report Name</th><th style="width:15%">Report ID</th><th>Notes</th></tr>
+        </thead>
+        <tbody id="reports-tbody">
+        </tbody>
+      </table>
     </div>
 
-    <!-- MDMS -->
+    <!-- UI & MDMS -->
     <div class="section" id="sec-mdms">
-      <div class="sec-hdr"><div class="sec-hdr-icon">🗂</div><div><div class="sec-hdr-title">UI &amp; MDMS Guides</div><div class="sec-hdr-desc">Step-by-step guides for portal configuration and master data uploads</div></div><div class="sec-badge">19 guides</div></div>
-      <table class="kb-table"><thead><tr><th style="width:14%">Type</th><th style="width:38%">Task</th><th>Resource</th><th style="width:5%"></th></tr></thead><tbody id="mdms-tbody"></tbody></table>
+      <div class="section-header">
+        <div class="section-icon">🗂</div>
+        <div>
+          <div class="section-title">UI & MDMS Guides</div>
+          <div class="section-desc">Step-by-step guides for portal configuration and master data uploads</div>
+        </div>
+        <div class="section-badge">19 guides</div>
+      </div>
+      <table class="kb-table">
+        <thead>
+          <tr><th style="width:14%">Type</th><th style="width:36%">Task</th><th>Resource</th></tr>
+        </thead>
+        <tbody id="mdms-tbody">
+        </tbody>
+      </table>
     </div>
 
     <!-- MODULES -->
     <div class="section" id="sec-modules">
-      <div class="sec-hdr"><div class="sec-hdr-icon">🧩</div><div><div class="sec-hdr-title">Bizom Modules</div><div class="sec-hdr-desc">Pitch decks for module upsells — open the deck, share with client</div></div><div class="sec-badge">10 modules</div></div>
+      <div class="section-header">
+        <div class="section-icon">🧩</div>
+        <div>
+          <div class="section-title">Bizom Modules</div>
+          <div class="section-desc">Pitch decks for module upsells — open the deck, share with the client</div>
+        </div>
+        <div class="section-badge">10 modules</div>
+      </div>
       <div class="callout">2 decks linked · 8 pending. Add Google Slides links as decks are created.</div>
       <div class="module-grid" id="modules-grid"></div>
     </div>
 
-    <!-- SOPS -->
+    <!-- SOPs -->
     <div class="section" id="sec-sops">
-      <div class="sec-hdr"><div class="sec-hdr-icon">📄</div><div><div class="sec-hdr-title">SOPs &amp; Important Links</div><div class="sec-hdr-desc">Go-live checklists, implementation plans, issue trackers</div></div></div>
-      <div class="sop-list" id="sops-list"></div>
-      <!-- GOLIVE SOP CONTENT -->
-      <div id="golive-content" style="display:none;margin-top:24px;max-width:900px">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--navy2);border-radius:9px 9px 0 0;border:1px solid var(--navy3)">
-          <div style="font-size:14px;font-weight:800;color:#fff">🚀 New Go-Live SOP — V0.1</div>
-          <button class="btn btn-ghost btn-sm" onclick="toggleGolive()" style="color:#fff;border-color:rgba(255,255,255,.2)">✕ Close</button>
+      <div class="section-header">
+        <div class="section-icon">📄</div>
+        <div>
+          <div class="section-title">SOPs & Important Links</div>
+          <div class="section-desc">Go-live checklists, implementation plans, issue trackers</div>
         </div>
-        <div style="background:var(--base2);border:1px solid var(--border);border-top:none;border-radius:0 0 9px 9px;padding:20px">
+      </div>
+      <div class="sop-list" id="sops-list"></div>
+
+      <!-- GO-LIVE SOP INLINE CONTENT -->
+      <div id="golive-content" style="display:none;margin-top:24px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--blue200)">
           <div style="font-size:15px;font-weight:800;color:var(--warm)">🚀 New Go-Live SOP — V0.1</div>
           <button class="btn btn-ghost btn-sm" onclick="toggleGolive()">✕ Close</button>
@@ -732,29 +1133,68 @@ mark{background:rgba(45,106,159,.15);color:var(--blue);padding:0 2px;border-radi
             </div>
           </div>
         </div>
+
       </div>
-    </div>
+      </div>
 
-    </div>
-    </div>
 
-    <!-- QUICK REF -->
-    <div class="section" id="sec-quickref">
-      <div class="sec-hdr"><div class="sec-hdr-icon">⚡</div><div><div class="sec-hdr-title">Quick Reference</div><div class="sec-hdr-desc">Common situations and exactly where to go — for new ABAs on day one</div></div></div>
-      <div class="qr-grid" id="qr-grid"></div>
+
+    <!-- UPLOADS & LINKS -->
+    <div class="section" id="sec-uploads">
+      <div class="section-header">
+        <div class="section-icon">📎</div>
+        <div>
+          <div class="section-title">Uploads &amp; Links</div>
+          <div class="section-desc">Attach files and external links — saved to your browser</div>
+        </div>
+      </div>
+      <div style="margin-bottom:28px">
+        <div style="font-size:13px;font-weight:700;color:var(--warm);margin-bottom:12px">📁 Upload Documents</div>
+        <div class="upload-dz" id="upload-dz" onclick="document.getElementById('file-input').click()"
+          ondragover="event.preventDefault();this.classList.add('drag')"
+          ondragleave="this.classList.remove('drag')"
+          ondrop="handleDrop(event)">
+          <input type="file" id="file-input" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.png,.jpg" onchange="handleFileSelect(this.files)">
+          <div class="upload-dz-icon">📂</div>
+          <div class="upload-dz-label">Drop files here or click to browse</div>
+          <div class="upload-dz-sub">PDF, Word, Excel, PPT, CSV, images — stored in your browser</div>
+        </div>
+        <div class="file-chips" id="file-chips"></div>
+      </div>
+      <div style="margin-bottom:28px">
+        <div style="font-size:13px;font-weight:700;color:var(--warm);margin-bottom:12px">🔗 Saved Links</div>
+        <div style="display:flex;gap:8px;margin-bottom:12px">
+          <input class="form-input" id="link-label-input" placeholder="Label (e.g. DMS Deck)" style="flex:1">
+          <input class="form-input" id="link-url-input" placeholder="https://..." style="flex:2">
+          <button class="btn btn-primary" onclick="addLink()">Add</button>
+        </div>
+        <div id="links-list"></div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--warm);margin-bottom:12px">📝 Notes</div>
+        <textarea class="form-textarea" id="global-notes" placeholder="Add any notes, reminders, or context here…" style="min-height:120px" oninput="saveNotes()"></textarea>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px">Auto-saved to your browser</div>
+      </div>
     </div>
 
     <!-- PENDING -->
     <div class="section" id="sec-pending">
-      <div class="sec-hdr"><div class="sec-hdr-icon">🕐</div><div><div class="sec-hdr-title">Pending Items</div><div class="sec-hdr-desc">Things not yet linked or documented — assign, track and complete</div></div><div class="sec-badge">22 items</div></div>
-      <div class="callout">Click any item to expand — set status, assign owner, add a link. All saved locally in your browser.</div>
+      <div class="section-header">
+        <div class="section-icon">🕐</div>
+        <div>
+          <div class="section-title">Pending Items</div>
+          <div class="section-desc">Things not yet linked or documented — assign and complete</div>
+        </div>
+        <div class="section-badge">20 items</div>
+      </div>
+      <div class="callout">Click any item to expand — assign an owner, set status, add a link, and mark as done. All changes are saved locally.</div>
       <div class="pending-stats" id="pending-stats">
-        <div class="pstat"><div class="pstat-num" id="pstat-total">22</div><div class="pstat-lbl">Total</div></div>
+        <div class="pstat"><div class="pstat-num" id="pstat-total">20</div><div class="pstat-lbl">Total</div></div>
         <div class="pstat"><div class="pstat-num" id="pstat-done" style="color:var(--green)">0</div><div class="pstat-lbl">Done</div></div>
-        <div class="pstat"><div class="pstat-num" id="pstat-inprog" style="color:var(--amber)">0</div><div class="pstat-lbl">In Progress</div></div>
-        <div class="pstat"><div class="pstat-num" id="pstat-todo" style="color:var(--muted)">22</div><div class="pstat-lbl">To Do</div></div>
+        <div class="pstat"><div class="pstat-num" id="pstat-inprog" style="color:#C97A0A">0</div><div class="pstat-lbl">In Progress</div></div>
+        <div class="pstat"><div class="pstat-num" id="pstat-todo" style="color:var(--muted)">20</div><div class="pstat-lbl">To Do</div></div>
         <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
-          <select id="pending-filter" onchange="renderPending()" style="background:var(--base2);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;color:var(--warm);font-family:inherit;outline:none">
+          <select id="pending-filter" onchange="renderPending()" style="background:var(--base3);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:12px;color:var(--warm);font-family:inherit;outline:none">
             <option value="all">All items</option>
             <option value="todo">To Do</option>
             <option value="inprog">In Progress</option>
@@ -766,32 +1206,7 @@ mark{background:rgba(45,106,159,.15);color:var(--blue);padding:0 2px;border-radi
       <div class="pending-grid" id="pending-grid"></div>
     </div>
 
-    <!-- UPLOADS -->
-    <div class="section" id="sec-uploads">
-      <div class="sec-hdr"><div class="sec-hdr-icon">📎</div><div><div class="sec-hdr-title">Uploads &amp; Links</div><div class="sec-hdr-desc">Attach files and external links — stored in your browser</div></div></div>
-      <div style="max-width:900px">
-        <div style="font-size:13px;font-weight:700;color:var(--warm);margin-bottom:10px">📁 Upload Documents</div>
-        <div class="upload-dz" id="upload-dz" onclick="document.getElementById('file-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
-          <input type="file" id="file-input" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.png,.jpg" onchange="handleFileSelect(this.files)">
-          <div class="upload-dz-icon">📂</div>
-          <div class="upload-dz-label">Drop files here or click to browse</div>
-          <div class="upload-dz-sub">PDF, Word, Excel, PPT, CSV, images — stored in browser</div>
-        </div>
-        <div class="file-chips" id="file-chips"></div>
-        <div style="font-size:13px;font-weight:700;color:var(--warm);margin:24px 0 10px">🔗 Saved Links</div>
-        <div style="display:flex;gap:8px;margin-bottom:12px">
-          <input class="form-input" id="link-label-input" placeholder="Label (e.g. DMS Deck)" style="flex:1">
-          <input class="form-input" id="link-url-input" placeholder="https://..." style="flex:2">
-          <button class="btn btn-primary" onclick="addLink()">Add</button>
-        </div>
-        <div id="links-list"></div>
-        <div style="font-size:13px;font-weight:700;color:var(--warm);margin:24px 0 10px">📝 Notes</div>
-        <textarea class="form-textarea" id="global-notes" placeholder="Add any notes, reminders, or context here…" style="min-height:120px;max-width:100%" oninput="saveNotes()"></textarea>
-        <div style="font-size:11px;color:var(--muted);margin-top:5px">Auto-saved to your browser</div>
-      </div>
-    </div>
-
-    <!-- SEARCH -->
+    <!-- SEARCH RESULTS -->
     <div class="section" id="sec-search">
       <div id="search-results-inner"></div>
     </div>
@@ -802,10 +1217,14 @@ mark{background:rgba(45,106,159,.15);color:var(--blue);padding:0 2px;border-radi
 <!-- MODAL -->
 <div class="modal-overlay" id="entry-modal">
   <div class="modal-box">
-    <div class="modal-title"><span id="modal-icon">⚙️</span><span id="modal-title-text">Add Entry</span><button class="modal-close-btn" onclick="closeModal()">✕</button></div>
+    <div class="modal-title">
+      <span id="modal-icon">⚙️</span>
+      <span id="modal-title-text">Add Entry</span>
+      <button class="modal-close-btn" onclick="closeModal()">✕</button>
+    </div>
     <div id="modal-form-body"></div>
-    <div style="display:flex;gap:10px;margin-top:18px">
-      <button class="btn btn-primary" onclick="saveEntry()">Save</button>
+    <div style="display:flex;gap:10px;margin-top:20px">
+      <button class="btn btn-primary" onclick="saveEntry()" id="modal-save-btn">Save</button>
       <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
       <button class="btn btn-danger btn-sm" id="modal-delete-btn" onclick="deleteEntry()" style="display:none;margin-left:auto">Delete</button>
     </div>
@@ -815,161 +1234,170 @@ mark{background:rgba(45,106,159,.15);color:var(--blue);padding:0 2px;border-radi
 <div class="toast" id="toast"></div>
 
 <script>
-// ══ DATA ══════════════════════════════════════════════
-const SETTINGS=[
-  {use:'User Block Time',key:'userBlockTime',desc:'Blocks user from accessing the app after a set time',val:''},
-  {use:'Primary Qty in Cases',key:'qtyincasesformobile_pri',desc:'Show primary transaction in units or cases in mobile app',val:''},
-  {use:'Display Inventory QTY',key:'availablequantitydisplay',desc:'Show available stock quantity in the app',val:''},
-  {use:'List Order Filter',key:'enableOrderOptimizeFilter',desc:'Change the order listing filter behaviour in the portal',val:''},
-  {use:'Unique Outlet Mobile Number',key:'checkforuniqueoutletmobilenumber',desc:'Enforce unique mobile numbers per outlet',val:''},
-  {use:'Show User KMs Travelled',key:'displaytotaldistancetravelled',desc:'Display km travelled by rep. If disabled, km capture also stops.',val:''},
-  {use:'Multi-Distributor Order',key:'orderWithMultiDistributor',desc:'Allow reps to place orders from multiple distributors in one session',val:''},
-  {use:'SKU Price Range',key:'enableskupricerange',desc:'Set min and max price per SKU. Enable alongside enterskuprice.',val:''},
-  {use:'Edit Order Permission',key:'editorderpermission',desc:'Role-wise permission to edit placed orders',val:''},
-  {use:'Bill Sequence for All Outlets',key:'enablebillsequencenoforall',desc:'Continuous bill number sequence across all outlet types (GST and non-GST)',val:''},
-  {use:'Enable Batch',key:'enablebatch',desc:'Enable batch tracking. Disables Direct and Bulk fulfilment.',val:''},
-  {use:'Avoid Duplicate Bill Numbers',key:'nongstoutletprefix',desc:'Prevent duplicate bill numbers for non-GST outlets',val:'1'},
-  {use:'GST Mode',key:'displaygstmode',desc:'GST calculated SKU-wise or cumulatively in the app',val:''},
-  {use:'Reporting Hierarchy',key:'usereportingtoforhiararchy',desc:'Reportee can only see their own data in hierarchy',val:'1'},
-  {use:'Block Transactions After EOD',key:'blockTransactionAfterEOD',desc:'Block all transactions once EOD is submitted',val:'1'},
-  {use:'Auto-Approve Distributor Orders',key:'autoorderapprovefordistributor',desc:'Automatically approve and reflect distributor orders',val:'1'},
-  {use:'Block Credit Note Auto-Redeem',key:'creditnoteautoredeemmodule',desc:'Prevent automatic redemption of credit notes',val:'0'},
-  {use:'Order Visibility',key:'usereportingtoforhierarchy',desc:'Controls which orders are visible based on reporting hierarchy',val:''},
-  {use:'Invoice Date Range for Returns',key:'lastndayinvoicesinreturn',desc:'Set how many days back invoices can be selected for a sale return',val:''},
-  {use:'Bulk Order Edit',key:'bulkfulfillmentmethode',desc:'Allow editing multiple orders at once',val:''},
-  {use:'Primary Units/Cases Visibility',key:'keycustdisunitshow',desc:'Show or hide units and cases for primary orders',val:''},
-  {use:'End Call Variance Check',key:'EndCallWithVariance',desc:'Geo-fencing check also applied at end of call',val:''},
+// ════════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════════
+const SETTINGS = [
+  { use:'User Block Time', key:'userBlockTime', desc:'Blocks user from accessing the app after a set time', val:'' },
+  { use:'Primary Qty in Cases', key:'qtyincasesformobile_pri', desc:'Show primary transaction in units or cases in mobile app', val:'' },
+  { use:'Display Inventory QTY', key:'availablequantitydisplay', desc:'Show available stock quantity in the app', val:'' },
+  { use:'List Order Filter', key:'enableOrderOptimizeFilter', desc:'Change the order listing filter behaviour in the portal', val:'' },
+  { use:'Unique Outlet Mobile Number', key:'checkforuniqueoutletmobilenumber', desc:'Enforce unique mobile numbers per outlet', val:'' },
+  { use:'Show User KMs Travelled', key:'displaytotaldistancetravelled', desc:'Display km travelled by rep. If disabled, km capture also stops.', val:'' },
+  { use:'Order from Multiple Distributors', key:'orderWithMultiDistributor', desc:'Allow reps to place orders from multiple distributors in one session', val:'' },
+  { use:'SKU Price Range', key:'enableskupricerange', desc:'Set min and max price per SKU. Enable alongside enterskuprice.', val:'' },
+  { use:'Edit Order Permission', key:'editorderpermission', desc:'Role-wise permission to edit placed orders', val:'' },
+  { use:'Bill Sequence for All Outlets', key:'enablebillsequencenoforall', desc:'Continuous bill number sequence across all outlet types', val:'' },
+  { use:'Enable Batch', key:'enablebatch', desc:'Enable batch tracking. Disables Direct and Bulk fulfilment.', val:'' },
+  { use:'Avoid Duplicate Bill Numbers', key:'nongstoutletprefix', desc:'Prevent duplicate bill numbers for non-GST outlets', val:'1' },
+  { use:'GST Mode', key:'displaygstmode', desc:'GST calculated SKU-wise or cumulatively in the app', val:'' },
+  { use:'Reporting Hierarchy', key:'usereportingtoforhiararchy', desc:'Reportee can only see their own data in hierarchy', val:'1' },
+  { use:'Block Transactions After EOD', key:'blockTransactionAfterEOD', desc:'Block all transactions once EOD is submitted', val:'1' },
+  { use:'Auto-Approve Distributor Orders', key:'autoorderapprovefordistributor', desc:'Automatically approve and reflect distributor orders', val:'1' },
+  { use:'Block Credit Note Auto-Redeem', key:'creditnoteautoredeemmodule', desc:'Prevent automatic redemption of credit notes', val:'0' },
+  { use:'Order Visibility', key:'usereportingtoforhierarchy', desc:'Controls which orders are visible based on reporting hierarchy', val:'' },
+  { use:'Invoice Date Range for Returns', key:'lastndayinvoicesinreturn', desc:'Set how many days back invoices can be selected for a sale return', val:'' },
+  { use:'Bulk Order Edit', key:'bulkfulfillmentmethode', desc:'Allow editing multiple orders at once', val:'' },
+  { use:'Primary Units/Cases Visibility', key:'keycustdisunitshow', desc:'Show or hide units and cases for primary orders', val:'' },
+  { use:'End Call Variance Check', key:'EndCallWithVariance', desc:'Geo-fencing check also applied at end of call', val:'' },
 ];
-const URLS=[
-  {name:'Debit & Credit Note Report',url:'cdnotes/creditanddebitnotes',type:'internal'},
-  {name:'Add Debit / Credit Note',url:'/cdnotes/addcreditnote',type:'internal'},
-  {name:'E-Invoice Setup',url:'/onlineinvoices/manageCredentials',type:'internal'},
-  {name:'UI Performance Report',url:'customreports/index',type:'internal'},
-  {name:'URL Permissions',url:'/urlpermissions/addpermissions',type:'internal'},
-  {name:'Create Loadsheets',url:'orders/fulfilledorderloadoutsheet',type:'internal'},
-  {name:'View Loadsheets',url:'loadoutsheets/index',type:'internal'},
-  {name:'Approve Claims',url:'claims/approveclaims',type:'internal'},
-  {name:'Claims Report',url:'claims/claimsreport',type:'internal'},
-  {name:'Direct Sale',url:'payments/sale',type:'internal'},
-  {name:'Direct Order',url:'payments/sale/order',type:'internal'},
-  {name:'Transfer Outlet (DB to DB)',url:'outlets/transferoutlets',type:'internal'},
-  {name:'Move Outlets Between Beats',url:'beats/moveoutlets',type:'internal'},
-  {name:'User Hierarchy View',url:'users/hierarchyview',type:'internal'},
-  {name:'Beatwise Dashboard',url:'users/beatwisedashboard',type:'internal'},
-  {name:'List Leads',url:'outlets/manageLeads',type:'internal'},
-  {name:'List Stages',url:'stages/',type:'internal'},
-  {name:'Add Stages',url:'stages/add',type:'internal'},
-  {name:'Add Tasks',url:'tasks/addOpportunityTask',type:'internal'},
-  {name:'List GRNs',url:'grns/mygrns',type:'internal'},
-  {name:'Collection Report (Depo-wise)',url:'collections/depowiseCollectionreport',type:'internal'},
-  {name:'Sale Return',url:'salemansalesreturns/salereturns',type:'internal'},
-  {name:'Primary Sale Return',url:'salemansalesreturns/salereturns/primarysalereturn',type:'internal'},
-  {name:'Collection from Portal',url:'collections/collectionInvoicewise',type:'internal'},
-  {name:'EOD Report',url:'endofdayreports/endofday/2024-06-18/65',type:'internal'},
-  {name:'Download SKUs (CSV)',url:'skunits/downloadskucsv',type:'internal'},
-  {name:'Map Warehouse to Zones',url:'crosszonedepomapping',type:'internal'},
-  {name:'DB Mapping (Distributor-Depo)',url:'distributordepomappings',type:'internal'},
-  {name:'New Call Report',url:'reports/newcallreport',type:'internal'},
-  {name:'Competitor Stock Report',url:'/competitorskunits/competitorstockreport',type:'internal'},
-  {name:'Printer Config (Bluetooth)',url:'settings/updateprinterconfig',type:'internal'},
-  {name:'Edit DIG Template',url:'companies/selectTemplate',type:'internal'},
-  {name:'Oneview Menu',url:'/reports.bizom.app/all/',type:'internal'},
-  {name:'Master User Workflow',url:'masteruserworkflows/index',type:'internal'},
-  {name:'Reverse Geo-Coding Tool',url:'https://www.geoapify.com/tools/reverse-geocoding-online',type:'external'},
-  {name:'App Release Check (Wiki)',url:'https://wiki.bizom.in/index.php/R%26D_team#App_Releases',type:'external'},
-  {name:'Bizom Portal Menu Config',url:'https://wiki.bizom.in/index.php/Bizom_portal_menu_or_access_urls_configuration',type:'external'},
-  {name:'Training Videos (MIS)',url:'https://wiki.bizom.in/index.php/Training_videos#MIS',type:'external'},
-  {name:'Training Videos (Drive)',url:'https://drive.google.com/drive/folders/15UTp2ARsl0A6k-JKxJtdnkPibbRuT6vw',type:'external'},
+
+const URLS = [
+  { name:'Debit & Credit Note Report', url:'cdnotes/creditanddebitnotes', type:'internal' },
+  { name:'Add Debit / Credit Note', url:'/cdnotes/addcreditnote', type:'internal' },
+  { name:'E-Invoice Setup', url:'/onlineinvoices/manageCredentials', type:'internal' },
+  { name:'UI Performance Report', url:'customreports/index', type:'internal' },
+  { name:'URL Permissions', url:'/urlpermissions/addpermissions', type:'internal' },
+  { name:'Create Loadsheets', url:'orders/fulfilledorderloadoutsheet', type:'internal' },
+  { name:'View Loadsheets', url:'loadoutsheets/index', type:'internal' },
+  { name:'Approve Claims', url:'claims/approveclaims', type:'internal' },
+  { name:'Claims Report', url:'claims/claimsreport', type:'internal' },
+  { name:'Direct Sale', url:'payments/sale', type:'internal' },
+  { name:'Direct Order', url:'payments/sale/order', type:'internal' },
+  { name:'Transfer Outlet (DB to DB)', url:'outlets/transferoutlets', type:'internal' },
+  { name:'Move Outlets Between Beats', url:'beats/moveoutlets', type:'internal' },
+  { name:'User Hierarchy View', url:'users/hierarchyview', type:'internal' },
+  { name:'Beatwise Dashboard', url:'users/beatwisedashboard', type:'internal' },
+  { name:'List Leads', url:'outlets/manageLeads', type:'internal' },
+  { name:'List Stages', url:'stages/', type:'internal' },
+  { name:'Add Stages', url:'stages/add', type:'internal' },
+  { name:'Add Tasks', url:'tasks/addOpportunityTask', type:'internal' },
+  { name:'List GRNs', url:'grns/mygrns', type:'internal' },
+  { name:'Collection Report (Depo-wise)', url:'collections/depowiseCollectionreport', type:'internal' },
+  { name:'Sale Return', url:'salemansalesreturns/salereturns', type:'internal' },
+  { name:'Primary Sale Return', url:'salemansalesreturns/salereturns/primarysalereturn', type:'internal' },
+  { name:'Collection from Portal', url:'collections/collectionInvoicewise', type:'internal' },
+  { name:'EOD Report', url:'endofdayreports/endofday/2024-06-18/65', type:'internal' },
+  { name:'Download SKUs (CSV)', url:'skunits/downloadskucsv', type:'internal' },
+  { name:'Map Warehouse to Zones', url:'crosszonedepomapping', type:'internal' },
+  { name:'DB Mapping (Distributor-Depo)', url:'distributordepomappings', type:'internal' },
+  { name:'New Call Report', url:'reports/newcallreport', type:'internal' },
+  { name:'Competitor Stock Report', url:'/competitorskunits/competitorstockreport', type:'internal' },
+  { name:'Printer Config (Bluetooth)', url:'settings/updateprinterconfig', type:'internal' },
+  { name:'Edit DIG Template', url:'companies/selectTemplate', type:'internal' },
+  { name:'Oneview Menu', url:'/reports.bizom.app/all/', type:'internal' },
+  { name:'Master User Workflow', url:'masteruserworkflows/index', type:'internal' },
+  { name:'Reverse Geo-Coding Tool', url:'https://www.geoapify.com/tools/reverse-geocoding-online', type:'external' },
+  { name:'App Release Check (Wiki)', url:'https://wiki.bizom.in/index.php/R%26D_team#App_Releases', type:'external' },
+  { name:'Bizom Portal Menu Config', url:'https://wiki.bizom.in/index.php/Bizom_portal_menu_or_access_urls_configuration', type:'external' },
+  { name:'Training Videos (MIS)', url:'https://wiki.bizom.in/index.php/Training_videos#MIS', type:'external' },
+  { name:'Training Videos (Drive)', url:'https://drive.google.com/drive/folders/15UTp2ARsl0A6k-JKxJtdnkPibbRuT6vw', type:'external' },
 ];
-const REPORTS=[
-  {module:'Secondary Order',name:'Order Report',id:'6775',note:''},
-  {module:'Secondary Order',name:'Order vs Fulfillment Report',id:'6344',note:''},
-  {module:'Secondary Order',name:'Secondary Sales Return Report',id:'3980',note:''},
-  {module:'Primary Order',name:'Primary Order vs Fulfillment Report',id:'3244',note:''},
-  {module:'Primary Order',name:'Primary Sale Return Report',id:'3244',note:'Same ID as Primary O vs F'},
-  {module:'Outlet',name:'Productive Outlet Report',id:'',note:'ID not specified in SOP'},
-  {module:'Outlet',name:'Outlet Master Report',id:'6999',note:''},
-  {module:'Outlet',name:'Not Assigned Outlet Report',id:'6436',note:''},
-  {module:'Outlet',name:'Non-Productive Outlet Report (last 90d)',id:'3332',note:''},
-  {module:'Outlet',name:'Outlet Time Spent Analysis',id:'5877',note:''},
-  {module:'SKU / Product',name:'SKU Master Report',id:'3087',note:''},
-  {module:'SKU / Product',name:'SKU-wise User-wise Target vs Achievement',id:'3385',note:''},
-  {module:'Warehouse',name:'Warehouse Master Report',id:'3788',note:''},
-  {module:'Sales',name:'Sale Report',id:'6944',note:''},
-  {module:'Sales',name:'Distance Traveled Report',id:'6753',note:''},
-  {module:'User',name:'User Performance Report',id:'8054',note:''},
-  {module:'User',name:'User Performance Summary Report',id:'8900',note:''},
-  {module:'User',name:'User Target vs Achievement Report',id:'8683',note:''},
-  {module:'User',name:'User Dump Report',id:'15267',note:''},
-  {module:'User',name:'User Master Report',id:'615',note:''},
-  {module:'User',name:'User Activity Report',id:'10102',note:''},
-  {module:'User',name:'User Mapview',id:'6469',note:'Via apiReportsLogin'},
-  {module:'Beat',name:'Beat Master Report',id:'3443',note:''},
-  {module:'Activity',name:'Activity Form Report',id:'8915',note:''},
-  {module:'Activity',name:'Generic Form Report',id:'9034',note:''},
-  {module:'GRN',name:'GRN Approved Status Report',id:'2709',note:''},
-  {module:'Dashboard',name:'Field Force Hygiene Dashboard',id:'6836',note:''},
-  {module:'Dashboard',name:'Analysis Dashboard',id:'12631',note:''},
-  {module:'Dashboard',name:'MTD Performance Dashboard',id:'11322',note:''},
-  {module:'Dashboard',name:'Salesman Performance Dashboard',id:'15875',note:'Also 20504'},
-  {module:'Dashboard',name:'Manager Dashboard',id:'16538',note:'Sales Manager & DB Sales Manager'},
-  {module:'Dashboard',name:'Tracker Dashboard (Managers)',id:'16497',note:'Enable only for manager roles'},
-  {module:'Compliance',name:'Compliance Dashboard Report',id:'',note:'Via reports/complaianceReport'},
+
+const REPORTS = [
+  { module:'Secondary Order', name:'Order Report', id:'6775', note:'' },
+  { module:'Secondary Order', name:'Order vs Fulfillment Report', id:'6344', note:'' },
+  { module:'Secondary Order', name:'Secondary Sales Return Report', id:'3980', note:'' },
+  { module:'Primary Order', name:'Primary Order vs Fulfillment Report', id:'3244', note:'' },
+  { module:'Primary Order', name:'Primary Sale Return Report', id:'3244', note:'Same ID as Primary O vs F' },
+  { module:'Outlet', name:'Productive Outlet Report', id:'', note:'ID not specified in SOP' },
+  { module:'Outlet', name:'Outlet Master Report', id:'6999', note:'' },
+  { module:'Outlet', name:'Not Assigned Outlet Report', id:'6436', note:'' },
+  { module:'Outlet', name:'Non-Productive Outlet Report (last 90d)', id:'3332', note:'' },
+  { module:'Outlet', name:'Outlet Time Spent Analysis', id:'5877', note:'' },
+  { module:'SKU / Product', name:'SKU Master Report', id:'3087', note:'' },
+  { module:'SKU / Product', name:'SKU-wise User-wise Target vs Achievement', id:'3385', note:'' },
+  { module:'Warehouse', name:'Warehouse Master Report', id:'3788', note:'' },
+  { module:'Sales', name:'Sale Report', id:'6944', note:'' },
+  { module:'Sales', name:'Distance Traveled Report', id:'6753', note:'' },
+  { module:'User', name:'User Performance Report', id:'8054', note:'' },
+  { module:'User', name:'User Performance Summary Report', id:'8900', note:'' },
+  { module:'User', name:'User Target vs Achievement Report', id:'8683', note:'' },
+  { module:'User', name:'User Dump Report', id:'15267', note:'' },
+  { module:'User', name:'User Master Report', id:'615', note:'' },
+  { module:'User', name:'User Activity Report', id:'10102', note:'' },
+  { module:'User', name:'User Mapview', id:'6469', note:'Via apiReportsLogin' },
+  { module:'Beat', name:'Beat Master Report', id:'3443', note:'' },
+  { module:'Activity', name:'Activity Form Report', id:'8915', note:'' },
+  { module:'Activity', name:'Generic Form Report', id:'9034', note:'' },
+  { module:'GRN', name:'GRN Approved Status Report', id:'2709', note:'' },
+  { module:'Dashboard', name:'Field Force Hygiene Dashboard', id:'6836', note:'' },
+  { module:'Dashboard', name:'Analysis Dashboard', id:'12631', note:'' },
+  { module:'Dashboard', name:'MTD Performance Dashboard', id:'11322', note:'' },
+  { module:'Dashboard', name:'Salesman Performance Dashboard', id:'15875', note:'Also 20504' },
+  { module:'Dashboard', name:'Manager Dashboard', id:'16538', note:'Sales Manager & DB Sales Manager' },
+  { module:'Dashboard', name:'Tracker Dashboard (Managers)', id:'16497', note:'Enable only for manager roles' },
+  { module:'Compliance', name:'Compliance Dashboard Report', id:'', note:'Via reports/complaianceReport' },
 ];
-const MDMS=[
-  {type:'UI & MDMS',task:'Add Zone and Subzone',link:''},
-  {type:'UI & MDMS',task:'Add Warehouse / Distributor',link:'https://drive.google.com/drive/folders/1xkYlwkUxT-DLAuagY5LjrkZiJfucgxx5'},
-  {type:'UI & MDMS',task:'Add Area',link:'https://drive.google.com/drive/folders/1tfAPAAeNvSPgdVzNOSEn8SH5DtBgqboy'},
-  {type:'UI & MDMS',task:'Add SKUs',link:'https://drive.google.com/drive/folders/1vItXrYK7ncEDz7YdALRtyPPFpxfDfEbC'},
-  {type:'MDMS',task:'Inventory MDM Upload',link:'https://docs.google.com/presentation/d/1k67y_qrjwZBmaKl5L_FOLYvF5EwaHt9b/edit'},
-  {type:'UI & MDMS',task:'Add User',link:'https://drive.google.com/drive/folders/16S7tB5bri79FV6tClgnepljMBjxuOJ84'},
-  {type:'MDMS',task:'Depo-Wise Price Upload',link:'https://docs.google.com/presentation/d/12IDQLWF0tORqltivVCyiEsIeIuQpv4K0/edit'},
-  {type:'MDMS',task:'Depo-Wise Price (Video)',link:'https://drive.google.com/drive/folders/1t_GKszDjSjn_okUEX_RiBm32Cza2lBCn'},
-  {type:'UI & MDMS',task:'Add Outlet Types & Outlet Category',link:'https://docs.google.com/presentation/d/1F6tUd0LnqSvPODSIOv03o_r0gU9aQDmz/edit'},
-  {type:'UI & MDMS',task:'Add Outlets',link:''},
-  {type:'UI',task:'Add Present Types',link:''},
-  {type:'UI',task:'Add Leave Types',link:''},
-  {type:'UI',task:'Add Reasons',link:''},
-  {type:'UI',task:'Create Schemes',link:''},
-  {type:'UI',task:'Assign Schemes',link:''},
-  {type:'UI',task:'Create Discounts',link:''},
-  {type:'UI',task:'Direct Sale',link:''},
-  {type:'UI',task:'Place Order from Portal',link:''},
-  {type:'UI & MDMS',task:'Inactivate User',link:''},
+
+const MDMS = [
+  { type:'UI & MDMS', task:'Add Zone and Subzone', link:'' },
+  { type:'UI & MDMS', task:'Add Warehouse / Distributor', link:'https://drive.google.com/drive/folders/1xkYlwkUxT-DLAuagY5LjrkZiJfucgxx5' },
+  { type:'UI & MDMS', task:'Add Area', link:'https://drive.google.com/drive/folders/1tfAPAAeNvSPgdVzNOSEn8SH5DtBgqboy' },
+  { type:'UI & MDMS', task:'Add SKUs', link:'https://drive.google.com/drive/folders/1vItXrYK7ncEDz7YdALRtyPPFpxfDfEbC' },
+  { type:'MDMS', task:'Inventory MDM Upload', link:'https://docs.google.com/presentation/d/1k67y_qrjwZBmaKl5L_FOLYvF5EwaHt9b/edit' },
+  { type:'UI & MDMS', task:'Add User', link:'https://drive.google.com/drive/folders/16S7tB5bri79FV6tClgnepljMBjxuOJ84' },
+  { type:'MDMS', task:'Depo-Wise Price Upload', link:'https://docs.google.com/presentation/d/12IDQLWF0tORqltivVCyiEsIeIuQpv4K0/edit' },
+  { type:'MDMS', task:'Depo-Wise Price (Video)', link:'https://drive.google.com/drive/folders/1t_GKszDjSjn_okUEX_RiBm32Cza2lBCn' },
+  { type:'UI & MDMS', task:'Add Outlet Types & Outlet Category', link:'https://docs.google.com/presentation/d/1F6tUd0LnqSvPODSIOv03o_r0gU9aQDmz/edit' },
+  { type:'UI & MDMS', task:'Add Outlets', link:'' },
+  { type:'UI', task:'Add Present Types', link:'' },
+  { type:'UI', task:'Add Leave Types', link:'' },
+  { type:'UI', task:'Add Reasons', link:'' },
+  { type:'UI', task:'Create Schemes', link:'' },
+  { type:'UI', task:'Assign Schemes', link:'' },
+  { type:'UI', task:'Create Discounts', link:'' },
+  { type:'UI', task:'Direct Sale', link:'' },
+  { type:'UI', task:'Place Order from Portal', link:'' },
+  { type:'UI & MDMS', task:'Inactivate User', link:'' },
 ];
-const MODULES=[
-  {name:'DMS — Distribution Management',link:'https://docs.google.com/presentation/d/1XZF82dBtPeqX8dIk5tge82D76jHiBFvi/edit'},
-  {name:'VDMS — Van Distribution Management',link:'https://docs.google.com/presentation/d/1DjzGsZKeMvuiunxyXT15OvhMi7WMX7HO/edit'},
-  {name:'Geofencing',link:''},
-  {name:'Tour Program',link:''},
-  {name:'Joint Working',link:''},
-  {name:'Tertiary Sale',link:''},
-  {name:'Promotor',link:''},
-  {name:'Task Management',link:''},
-  {name:'Assets',link:''},
-  {name:'Business Units',link:''},
+
+const MODULES = [
+  { name:'DMS — Distribution Management', link:'https://docs.google.com/presentation/d/1XZF82dBtPeqX8dIk5tge82D76jHiBFvi/edit' },
+  { name:'VDMS — Van Distribution Management', link:'https://docs.google.com/presentation/d/1DjzGsZKeMvuiunxyXT15OvhMi7WMX7HO/edit' },
+  { name:'Geofencing', link:'' },
+  { name:'Tour Program', link:'' },
+  { name:'Joint Working', link:'' },
+  { name:'Tertiary Sale', link:'' },
+  { name:'Promotor', link:'' },
+  { name:'Task Management', link:'' },
+  { name:'Assets', link:'' },
+  { name:'Business Units', link:'' },
 ];
-const SOPS=[
-  {icon:'🚀',name:'New Go-Live SOP (V0.1)',desc:'Best practices for OMS — full content on this page',link:''},
-  {icon:'📊',name:'Implementation Plan',desc:'Project plan template for new implementations',link:'https://docs.google.com/spreadsheets/d/1z-Eay5ynRQPL8NT_9nC3'},
-  {icon:'🔧',name:'After Company Update Issues',desc:'Common issues post company update with fixes',link:'https://docs.google.com/spreadsheets/d/1JkWJl5Zkmf2NrqNlNz2Q'},
-  {icon:'📝',name:'SLAs',desc:'Service level agreements per issue type',link:''},
+
+const SOPS = [
+  { icon:'🚀', name:'New Go-Live SOP (V0.1)', desc:'Best practices for OMS — full content embedded in this page', link:'' },
+  { icon:'📊', name:'Implementation Plan', desc:'Project plan template for new implementations', link:'https://docs.google.com/spreadsheets/d/1z-Eay5ynRQPL8NT_9nC3' },
+  { icon:'🔧', name:'After Company Update Issues', desc:'Common issues post company update with fixes', link:'https://docs.google.com/spreadsheets/d/1JkWJl5Zkmf2NrqNlNz2Q' },
+  { icon:'📝', name:'SLAs', desc:'Service level agreements per issue type', link:'' },
 ];
-const QR_ITEMS=[
-  {q:'Block users after EOD submission',a:'Settings → <strong>blockTransactionAfterEOD</strong> → Value 1'},
-  {q:'Move outlets to a different beat',a:'URLs → <strong>beats/moveoutlets</strong>'},
-  {q:'Map a report to a company',a:'Reports → find Report ID → go to Reports Mapping URL'},
-  {q:'Show inventory qty in app',a:'Settings → <strong>availablequantitydisplay</strong>'},
-  {q:'Add SKUs via bulk upload',a:'UI & MDMS → Add SKUs → open Drive folder'},
-  {q:'Check current app release version',a:'URLs → App Release Check (Wiki)'},
-  {q:'Unique mobile number per outlet',a:'Settings → <strong>checkforuniqueoutletmobilenumber</strong>'},
-  {q:'Pitch the DMS module',a:'Modules → <strong>DMS</strong> → open deck'},
-  {q:'Transfer outlet from one DB to another',a:'URLs → <strong>outlets/transferoutlets</strong>'},
-  {q:'Bill numbers should not reset',a:'Settings → <strong>enablebillsequencenoforall</strong>'},
-  {q:'New company going live',a:'SOPs → New Go-Live SOP → Open content'},
-  {q:'Configure Bluetooth invoice printer',a:'URLs → <strong>settings/updateprinterconfig</strong>'},
+
+const QR_ITEMS = [
+  { q:'Client wants to block users after EOD', a:'Settings → blockTransactionAfterEOD → Value 1' },
+  { q:'Need to move outlets to a different beat', a:'URLs → beats/moveoutlets' },
+  { q:'Map a report to a company', a:'Reports → find Report ID → go to Reports Mapping URL' },
+  { q:'Client wants inventory qty visible in app', a:'Settings → availablequantitydisplay' },
+  { q:'Add SKUs via bulk upload', a:'UI & MDMS → Add SKUs → open Drive folder' },
+  { q:'Check current app release version', a:'URLs → App Release Check (Wiki)' },
+  { q:'Client wants unique mobile per outlet', a:'Settings → checkforuniqueoutletmobilenumber' },
+  { q:'Pitch the DMS module', a:'Modules → DMS → open deck' },
+  { q:'Transfer an outlet from one DB to another', a:'URLs → outlets/transferoutlets' },
+  { q:'Bill numbers should not reset', a:'Settings → enablebillsequencenoforall' },
+  { q:'New company going live — where to start?', a:'SOPs → New Go-Live SOP' },
+  { q:'Configure Bluetooth invoice printer', a:'URLs → settings/updateprinterconfig' },
 ];
-const PENDING=[
+
+const PENDING = [
   'Productive Outlet Report — confirm Report ID (not in SOP)',
   'Compliance Dashboard Report — confirm Report ID',
   'Zone & Subzone setup guide (UI & MDMS)',
@@ -994,17 +1422,25 @@ const PENDING=[
   'SLAs — not yet defined',
 ];
 
-// ══ STORE ══════════════════════════════════════════════
-const STORE={
+// ════════════════════════════════════════════
+// STORE
+// ════════════════════════════════════════════
+const STORE = {
   get:(k,d)=>{try{return JSON.parse(localStorage.getItem('biz_kb_'+k))??d;}catch{return d;}},
   set:(k,v)=>{try{localStorage.setItem('biz_kb_'+k,JSON.stringify(v));}catch{}},
 };
-let customSettings=STORE.get('settings',[]),customUrls=STORE.get('urls',[]);
-let customReports=STORE.get('reports',[]),customMdms=STORE.get('mdms',[]);
-let customModules=STORE.get('modules',[]),customSops=STORE.get('sops',[]);
-let savedLinks=STORE.get('links',[]),savedFiles=STORE.get('files',[]);
+
+let customSettings=STORE.get('settings',[]);
+let customUrls=STORE.get('urls',[]);
+let customReports=STORE.get('reports',[]);
+let customMdms=STORE.get('mdms',[]);
+let customModules=STORE.get('modules',[]);
+let customSops=STORE.get('sops',[]);
+let savedLinks=STORE.get('links',[]);
+let savedFiles=STORE.get('files',[]);
 let pendingMeta=STORE.get('pendingMeta',{});
-let _modalSection=null,_editIndex=null,searchTimeout;
+let _modalSection=null;
+let _editIndex=null;
 
 function allSettings(){return[...SETTINGS,...customSettings];}
 function allUrls(){return[...URLS,...customUrls];}
@@ -1013,139 +1449,222 @@ function allMdms(){return[...MDMS,...customMdms];}
 function allModules(){return[...MODULES,...customModules];}
 function allSops(){return[...SOPS,...customSops];}
 
-// ══ HELPERS ════════════════════════════════════════════
+// ════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════
 function typeTag(t){
   if(t==='UI & MDMS')return'<span class="tag tag-both">UI & MDMS</span>';
   if(t==='MDMS')return'<span class="tag tag-mdms">MDMS</span>';
   if(t==='UI')return'<span class="tag tag-ui">UI</span>';
   return'<span class="tag tag-ext">'+t+'</span>';
 }
-function showToast(msg,isErr){
-  const t=document.getElementById('toast');if(!t)return;
-  t.textContent=(isErr?'⚠ ':'✓ ')+msg;
-  t.style.background=isErr?'var(--red)':'var(--green)';
-  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
+function showToast(msg,isError){
+  const t=document.getElementById('toast');
+  if(!t)return;
+  t.textContent=(isError?'⚠ ':'✓ ')+msg;
+  t.style.background=isError?'var(--red)':'var(--green)';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-// ══ NAVIGATION ═════════════════════════════════════════
-function showSection(id,el){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('visible'));
+// ════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════
+function openGolive(){
+  toggleGolive(true);
+}
+function toggleGolive(forceOpen){
+  const div = document.getElementById('golive-content');
+  if(!div) return;
+  const isOpen = div.style.display !== 'none';
+  div.style.display = (forceOpen || !isOpen) ? 'block' : 'none';
+  if(div.style.display === 'block'){
+    // Make sure sec-sops is visible
+    showSection('sops', document.querySelector('[data-section=sops]'));
+    div.style.display = 'block'; // re-set after showSection
+    setTimeout(()=>{ div.scrollIntoView({behavior:'smooth', block:'start'}); }, 50);
+  }
+}
+function showSection(id, el){
+  document.querySelectorAll('.section').forEach(s=>{s.classList.remove('visible');s.style.display='';});
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const main=document.querySelector('.main');
+  if(main) main.scrollTop=0;
   const sec=document.getElementById('sec-'+id);
   if(sec)sec.classList.add('visible');
   if(el)el.classList.add('active');
   document.getElementById('search').value='';
-  const m=document.querySelector('.main');if(m)m.scrollTop=0;
-}
-function openGolive(){
-  showSection('sops',document.querySelector('[data-section=sops]'));
-  setTimeout(()=>toggleGolive(true),50);
-}
-function toggleGolive(forceOpen){
-  const d=document.getElementById('golive-content');if(!d)return;
-  const open=forceOpen||d.style.display==='none';
-  d.style.display=open?'block':'none';
-  if(open)setTimeout(()=>d.scrollIntoView({behavior:'smooth',block:'start'}),100);
 }
 
-// ══ RENDERS ════════════════════════════════════════════
-function applyOverrides(s){
-  const ov=STORE.get('overrides_'+s,{});
-  const tgt={settings:SETTINGS,urls:URLS,reports:REPORTS,mdms:MDMS,modules:MODULES,sops:SOPS}[s];
-  if(tgt)Object.entries(ov).forEach(([i,o])=>{if(tgt[i])Object.assign(tgt[i],o);});
-}
-function getBuiltinLen(s){return{settings:SETTINGS.length,urls:URLS.length,reports:REPORTS.length,mdms:MDMS.length,modules:MODULES.length,sops:SOPS.length}[s];}
-function getCustomArr(s){return{settings:customSettings,urls:customUrls,reports:customReports,mdms:customMdms,modules:customModules,sops:customSops}[s];}
-function getAllArr(s){return{settings:allSettings(),urls:allUrls(),reports:allReports(),mdms:allMdms(),modules:allModules(),sops:allSops()}[s];}
-function saveCustomArr(s,arr){const m={settings:customSettings,urls:customUrls,reports:customReports,mdms:customMdms,modules:customModules,sops:customSops};m[s].length=0;arr.forEach(x=>m[s].push(x));STORE.set(s,arr);}
-function reRender(s){const m={settings:renderSettings,urls:renderUrls,reports:renderReports,mdms:renderMdms,modules:renderModules,sops:renderSops};if(m[s])m[s]();}
-
+// ════════════════════════════════════════════
+// RENDER TABLES
+// ════════════════════════════════════════════
 function renderSettings(){
-  const el=document.getElementById('settings-tbody');if(!el)return;el.innerHTML='';
+  const stb=document.getElementById('settings-tbody');
+  if(!stb)return;
+  stb.innerHTML='';
   allSettings().forEach((s,i)=>{
     const isC=i>=SETTINGS.length;
-    el.innerHTML+=`<tr><td>${s.use}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</td><td><span class="code-val">${s.key}</span></td><td>${s.desc}</td><td>${s.val?'<span class="note-val">'+s.val+'</span>':'—'}</td><td><div style="display:flex;gap:3px"><button class="row-act-btn" onclick="editEntry('settings',${i})">✏️</button>${isC?`<button class="row-act-btn del" onclick="deleteEntryDirect('settings',${i-SETTINGS.length})">🗑</button>`:''}</div></td></tr>`;
+    stb.innerHTML+=`<tr>
+      <td>${s.use}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</td>
+      <td>${s.key}</td>
+      <td>${s.desc}</td>
+      <td>${s.val?'<span class="note-val">'+s.val+'</span>':'<span style="color:var(--muted)">—</span>'}</td>
+      <td style="width:1%"><div style="display:flex;gap:4px">
+        <button class="row-act-btn" onclick="editEntry('settings',${i})">✏️</button>
+        ${isC?`<button class="row-act-btn del" onclick="deleteEntryDirect('settings',${i-SETTINGS.length})">🗑</button>`:''}
+      </div></td>
+    </tr>`;
   });
-}
-function renderUrls(){
-  const el=document.getElementById('urls-tbody');if(!el)return;el.innerHTML='';
-  allUrls().forEach((u,i)=>{
-    const isC=i>=URLS.length,isE=u.type==='external'||u.url.startsWith('http');
-    const disp=isE?`<a class="link-val" href="${u.url}" target="_blank">${u.url}</a>`:`<span class="code-val">${u.url}</span>`;
-    el.innerHTML+=`<tr><td>${u.name}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</td><td>${disp}</td><td><span class="tag ${isE?'tag-ext':'tag-ui'}">${isE?'External':'Internal'}</span></td><td><div style="display:flex;gap:3px"><button class="row-act-btn" onclick="editEntry('urls',${i})">✏️</button>${isC?`<button class="row-act-btn del" onclick="deleteEntryDirect('urls',${i-URLS.length})">🗑</button>`:''}</div></td></tr>`;
-  });
-}
-function renderReports(){
-  const el=document.getElementById('reports-tbody');if(!el)return;el.innerHTML='';
-  allReports().forEach((r,i)=>{
-    const isC=i>=REPORTS.length;
-    el.innerHTML+=`<tr><td>${r.module}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</td><td>${r.name}</td><td><span class="id-badge">${r.id||'—'}</span></td><td>${r.note||'—'}</td><td><div style="display:flex;gap:3px"><button class="row-act-btn" onclick="editEntry('reports',${i})">✏️</button>${isC?`<button class="row-act-btn del" onclick="deleteEntryDirect('reports',${i-REPORTS.length})">🗑</button>`:''}</div></td></tr>`;
-  });
-}
-function renderMdms(){
-  const el=document.getElementById('mdms-tbody');if(!el)return;el.innerHTML='';
-  allMdms().forEach((m,i)=>{
-    const isC=i>=MDMS.length;
-    const res=m.link?`<a class="link-val" href="${m.link}" target="_blank">${m.link.includes('drive.google')?'📁 Drive Folder':'📊 Presentation'}</a>`:'<span class="no-link">Link not added</span>';
-    el.innerHTML+=`<tr><td>${typeTag(m.type)}</td><td style="font-weight:600">${m.task}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</td><td>${res}</td><td><div style="display:flex;gap:3px"><button class="row-act-btn" onclick="editEntry('mdms',${i})">✏️</button>${isC?`<button class="row-act-btn del" onclick="deleteEntryDirect('mdms',${i-MDMS.length})">🗑</button>`:''}</div></td></tr>`;
-  });
-}
-function renderModules(){
-  const el=document.getElementById('modules-grid');if(!el)return;el.innerHTML='';
-  allModules().forEach((m,i)=>{
-    const isC=i>=MODULES.length,linked=!!m.link;
-    el.innerHTML+=`<div class="module-card"><div class="mc-name">${m.name}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</div><span class="mc-status ${linked?'linked':'pending'}">${linked?'✓ Linked':'Pending'}</span>${linked?`<br><a class="mc-link" href="${m.link}" target="_blank">Open deck →</a>`:''}<div style="margin-top:10px;display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="editEntry('modules',${i})">${linked?'✏️ Edit':'+ Link'}</button>${isC?`<button class="btn btn-danger btn-sm" onclick="deleteEntryDirect('modules',${i-MODULES.length})">🗑</button>`:''}</div></div>`;
-  });
-}
-function renderSops(){
-  const el=document.getElementById('sops-list');if(!el)return;el.innerHTML='';
-  allSops().forEach((s,i)=>{
-    const isC=i>=SOPS.length;
-    el.innerHTML+=`<div class="sop-item"><span class="sop-ic">${s.icon||'📄'}</span><div><div class="sop-name">${s.name}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</div><div class="sop-desc">${s.desc||''}</div></div><div style="display:flex;gap:6px;align-items:center;margin-left:auto">${s.link?`<a class="sop-link" href="${s.link}" target="_blank">Open →</a>`:i===0?'<button class="btn btn-primary btn-sm" onclick="openGolive()">Open SOP →</button>':'<span class="sop-pending">Link pending</span>'}<button class="btn btn-ghost btn-sm" onclick="editEntry('sops',${i})">✏️</button>${isC?`<button class="btn btn-danger btn-sm" onclick="deleteEntryDirect('sops',${i-SOPS.length})">🗑</button>`:''}</div></div>`;
-  });
-}
-function renderQR(){
-  const el=document.getElementById('qr-grid');if(!el)return;
-  el.innerHTML=QR_ITEMS.map(q=>`<div class="qr-card"><div class="qr-q">${q.q}</div><div class="qr-a">${q.a}</div></div>`).join('');
 }
 
-// ══ PENDING ════════════════════════════════════════════
+function renderUrls(){
+  const utb=document.getElementById('urls-tbody');
+  if(!utb)return;
+  utb.innerHTML='';
+  allUrls().forEach((u,i)=>{
+    const isC=i>=URLS.length;
+    const isExt=u.type==='external'||u.url.startsWith('http');
+    const display=isExt?`<a class="link-val" href="${u.url}" target="_blank">${u.url}</a>`:`<span class="code-val">${u.url}</span>`;
+    utb.innerHTML+=`<tr>
+      <td>${u.name}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</td>
+      <td>${display}</td>
+      <td><span class="tag ${isExt?'tag-ext':'tag-ui'}">${isExt?'External':'Internal'}</span></td>
+      <td style="width:1%"><div style="display:flex;gap:4px">
+        <button class="row-act-btn" onclick="editEntry('urls',${i})">✏️</button>
+        ${isC?`<button class="row-act-btn del" onclick="deleteEntryDirect('urls',${i-URLS.length})">🗑</button>`:''}
+      </div></td>
+    </tr>`;
+  });
+}
+
+function renderReports(){
+  const rtb=document.getElementById('reports-tbody');
+  if(!rtb)return;
+  rtb.innerHTML='';
+  allReports().forEach((r,i)=>{
+    const isC=i>=REPORTS.length;
+    rtb.innerHTML+=`<tr>
+      <td>${r.module}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</td>
+      <td>${r.name}</td>
+      <td><span style="font-size:15px;font-weight:800;color:var(--blue700)">${r.id||'—'}</span></td>
+      <td>${r.note||'—'}</td>
+      <td style="width:1%"><div style="display:flex;gap:4px">
+        <button class="row-act-btn" onclick="editEntry('reports',${i})">✏️</button>
+        ${isC?`<button class="row-act-btn del" onclick="deleteEntryDirect('reports',${i-REPORTS.length})">🗑</button>`:''}
+      </div></td>
+    </tr>`;
+  });
+}
+
+function renderMdms(){
+  const mtb=document.getElementById('mdms-tbody');
+  if(!mtb)return;
+  mtb.innerHTML='';
+  allMdms().forEach((m,i)=>{
+    const isC=i>=MDMS.length;
+    const res=m.link?`<a class="link-val" href="${m.link}" target="_blank">${m.link.includes('drive.google')?'📁 Open Drive Folder':'📊 Open Presentation'}</a>`:'<span class="no-link">Link not added yet</span>';
+    mtb.innerHTML+=`<tr>
+      <td>${typeTag(m.type)}</td>
+      <td style="font-weight:600">${m.task}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</td>
+      <td>${res}</td>
+      <td style="width:1%"><div style="display:flex;gap:4px">
+        <button class="row-act-btn" onclick="editEntry('mdms',${i})">✏️</button>
+        ${isC?`<button class="row-act-btn del" onclick="deleteEntryDirect('mdms',${i-MDMS.length})">🗑</button>`:''}
+      </div></td>
+    </tr>`;
+  });
+}
+
+function renderModules(){
+  const mg=document.getElementById('modules-grid');
+  if(!mg)return;
+  mg.innerHTML='';
+  allModules().forEach((m,i)=>{
+    const isC=i>=MODULES.length;
+    const linked=!!m.link;
+    mg.innerHTML+=`<div class="module-card">
+      <div class="mc-name">${m.name}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</div>
+      <span class="mc-status ${linked?'linked':'pending'}">${linked?'✓ Deck linked':'Deck pending'}</span>
+      ${linked?`<br><a class="mc-link" href="${m.link}" target="_blank">Open presentation →</a>`:''}
+      <div style="margin-top:10px;display:flex;gap:6px">
+        <button class="btn btn-ghost btn-sm" onclick="editEntry('modules',${i})">${linked?'✏️ Edit':'+ Add link'}</button>
+        ${isC?`<button class="btn btn-danger btn-sm" onclick="deleteEntryDirect('modules',${i-MODULES.length})">🗑</button>`:''}
+      </div>
+    </div>`;
+  });
+}
+
+function renderSops(){
+  const sl=document.getElementById('sops-list');
+  if(!sl)return;
+  sl.innerHTML='';
+  allSops().forEach((s,i)=>{
+    const isC=i>=SOPS.length;
+    sl.innerHTML+=`<div class="sop-item">
+      <span class="sop-ic">${s.icon||'📄'}</span>
+      <div><div class="sop-name">${s.name}${isC?' <span class="tag tag-ui" style="font-size:9px">custom</span>':''}</div><div class="sop-desc">${s.desc||''}</div></div>
+      <div style="display:flex;gap:6px;align-items:center;margin-left:auto">
+        ${s.link?`<a class="sop-link" href="${s.link}" target="_blank">Open →</a>`:(i===0?'<button class="btn btn-primary btn-sm" onclick="openGolive()">Open SOP →</button>':'<span class="sop-pending">Link pending</span>')}
+        <button class="btn btn-ghost btn-sm" onclick="editEntry('sops',${i})">✏️</button>
+        ${isC?`<button class="btn btn-danger btn-sm" onclick="deleteEntryDirect('sops',${i-SOPS.length})">🗑</button>`:''}
+      </div>
+    </div>`;
+  });
+}
+
+// ════════════════════════════════════════════
+// PENDING
+// ════════════════════════════════════════════
 function getPendingAll(){return[...PENDING,...STORE.get('pendingCustom',[])];}
+
 function renderPending(){
-  const grid=document.getElementById('pending-grid');if(!grid)return;
+  const grid=document.getElementById('pending-grid');
+  if(!grid)return;
   const filter=document.getElementById('pending-filter')?.value||'all';
-  const all=getPendingAll();let html='';
+  const all=getPendingAll();
+  let html='';
   all.forEach((title,i)=>{
     const meta=pendingMeta[i]||{status:'todo',owner:'',link:'',note:''};
     if(filter!=='all'&&meta.status!==filter)return;
-    const isC=i>=PENDING.length,isDone=meta.status==='done',isIP=meta.status==='inprog';
-    html+=`<div class="pending-card ${isDone?'done':isIP?'inprog':''}" id="pc-${i}">
+    const isDone=meta.status==='done';
+    const isInProg=meta.status==='inprog';
+    const isC=i>=PENDING.length;
+    const badgeClass=isDone?'done-badge':isInProg?'inprog':'todo';
+    const badgeText=isDone?'✓ Done':isInProg?'⏳ In Progress':'○ To Do';
+    html+=`<div class="pending-card ${isDone?'done':''}" id="pc-${i}">
       <div class="pending-top" onclick="togglePendingDetail(${i})">
-        <div class="pending-check" onclick="event.stopPropagation();cyclePendingStatus(${i})">${isDone?'✓':isIP?'…':''}</div>
+        <div class="pending-check" onclick="event.stopPropagation();cyclePendingStatus(${i})">${isDone?'✓':isInProg?'…':''}</div>
         <div class="pending-title">${title}</div>
-        <span class="pending-status-badge ${isDone?'done-badge':isIP?'inprog':'todo'}">${isDone?'✓ Done':isIP?'In Progress':'To Do'}</span>
+        <span class="pending-status-badge ${badgeClass}">${badgeText}</span>
         ${isC?`<button class="row-act-btn del" style="margin-left:6px" onclick="event.stopPropagation();deletePendingCustom(${i})">🗑</button>`:''}
         <span class="pending-toggle">▾</span>
       </div>
       <div class="pending-details" id="pd-${i}">
         <div class="pending-detail-row">
           <div class="pending-field"><label>Owner</label><input class="pending-input" id="pown-${i}" placeholder="e.g. Kruthin" value="${meta.owner||''}"></div>
-          <div class="pending-field"><label>Status</label><select class="pending-input" id="pstat-${i}"><option value="todo" ${meta.status==='todo'?'selected':''}>To Do</option><option value="inprog" ${meta.status==='inprog'?'selected':''}>In Progress</option><option value="done" ${meta.status==='done'?'selected':''}>Done</option></select></div>
+          <div class="pending-field"><label>Status</label><select class="pending-input" id="pstat-${i}">
+            <option value="todo" ${meta.status==='todo'?'selected':''}>To Do</option>
+            <option value="inprog" ${meta.status==='inprog'?'selected':''}>In Progress</option>
+            <option value="done" ${meta.status==='done'?'selected':''}>Done</option>
+          </select></div>
         </div>
         <div class="pending-link-row"><div class="pending-field"><label>Resource Link</label><input class="pending-input" id="plink-${i}" placeholder="https://..." value="${meta.link||''}"></div></div>
         <div class="pending-link-row"><div class="pending-field"><label>Notes</label><input class="pending-input" id="pnote-${i}" placeholder="Any context..." value="${meta.note||''}"></div></div>
         <button class="pending-save-btn" onclick="savePendingMeta(${i})">Save</button>
-      </div></div>`;
+      </div>
+    </div>`;
   });
   if(!html)html='<div style="padding:40px;text-align:center;color:var(--muted)">No items match the filter.</div>';
   grid.innerHTML=html;
   updatePendingStats();
 }
+
 function togglePendingDetail(i){const el=document.getElementById('pd-'+i);if(el)el.classList.toggle('open');}
 function cyclePendingStatus(i){
-  const m=pendingMeta[i]||{status:'todo',owner:'',link:'',note:''};
-  m.status=m.status==='todo'?'inprog':m.status==='inprog'?'done':'todo';
-  pendingMeta[i]=m;STORE.set('pendingMeta',pendingMeta);renderPending();
+  const meta=pendingMeta[i]||{status:'todo',owner:'',link:'',note:''};
+  meta.status=meta.status==='todo'?'inprog':meta.status==='inprog'?'done':'todo';
+  pendingMeta[i]=meta;STORE.set('pendingMeta',pendingMeta);renderPending();
 }
 function savePendingMeta(i){
   pendingMeta[i]={
@@ -1159,153 +1678,265 @@ function savePendingMeta(i){
 function updatePendingStats(){
   const all=getPendingAll();
   const done=all.filter((_,i)=>(pendingMeta[i]?.status||'todo')==='done').length;
-  const ip=all.filter((_,i)=>(pendingMeta[i]?.status||'todo')==='inprog').length;
-  const todo=all.length-done-ip;
+  const inprog=all.filter((_,i)=>(pendingMeta[i]?.status||'todo')==='inprog').length;
+  const todo=all.length-done-inprog;
   const s=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  s('pstat-total',all.length);s('pstat-done',done);s('pstat-inprog',ip);s('pstat-todo',todo);
-  const b=document.getElementById('pending-nav-count');if(b)b.textContent=todo;
+  s('pstat-total',all.length);s('pstat-done',done);s('pstat-inprog',inprog);s('pstat-todo',todo);
+  const badge=document.querySelector('[data-section=pending] .nav-count');
+  if(badge)badge.textContent=todo;
 }
 function addPendingItem(){
-  const t=prompt('Enter pending item title:');if(!t||!t.trim())return;
-  const c=STORE.get('pendingCustom',[]);c.push(t.trim());STORE.set('pendingCustom',c);renderPending();showToast('Item added');
+  const title=prompt('Enter pending item title:');
+  if(!title||!title.trim())return;
+  const custom=STORE.get('pendingCustom',[]);
+  custom.push(title.trim());STORE.set('pendingCustom',custom);renderPending();showToast('Item added');
 }
-function deletePendingCustom(i){
+function deletePendingCustom(allIndex){
   if(!confirm('Delete this item?'))return;
-  const c=STORE.get('pendingCustom',[]);c.splice(i-PENDING.length,1);STORE.set('pendingCustom',c);renderPending();showToast('Deleted');
+  const custom=STORE.get('pendingCustom',[]);
+  custom.splice(allIndex-PENDING.length,1);STORE.set('pendingCustom',custom);renderPending();showToast('Deleted');
 }
 
-// ══ ADD/EDIT MODAL ═════════════════════════════════════
+// ════════════════════════════════════════════
+// MODAL / EDIT
+// ════════════════════════════════════════════
 const FORMS={
-  settings:{icon:'⚙️',title:'Setting',fields:[{key:'use',label:'Use Case',type:'input',placeholder:'e.g. Block user after EOD'},{key:'key',label:'Setting Key',type:'input',placeholder:'e.g. blockTransactionAfterEOD'},{key:'desc',label:'Description',type:'textarea',placeholder:'What does this do?'},{key:'val',label:'Value (if required)',type:'input',placeholder:'e.g. 1'}]},
-  urls:{icon:'🔗',title:'URL',fields:[{key:'name',label:'Feature Name',type:'input',placeholder:'e.g. Direct Sale'},{key:'url',label:'URL Path or Full URL',type:'input',placeholder:'payments/sale  or  https://...'},{key:'type',label:'Type',type:'select',options:['internal','external']}]},
-  reports:{icon:'📋',title:'Report',fields:[{key:'module',label:'Module',type:'input',placeholder:'e.g. User'},{key:'name',label:'Report Name',type:'input',placeholder:'e.g. User Performance Report'},{key:'id',label:'Report ID',type:'input',placeholder:'e.g. 8054'},{key:'note',label:'Notes',type:'input',placeholder:'Optional'}]},
-  mdms:{icon:'🗂',title:'UI / MDMS Guide',fields:[{key:'type',label:'Category',type:'select',options:['UI','MDMS','UI & MDMS']},{key:'task',label:'Task',type:'input',placeholder:'e.g. Add Zone and Subzone'},{key:'link',label:'Resource Link',type:'input',placeholder:'https://drive.google.com/...'}]},
-  modules:{icon:'🧩',title:'Module',fields:[{key:'name',label:'Module Name',type:'input',placeholder:'e.g. Geofencing'},{key:'link',label:'Presentation Link',type:'input',placeholder:'https://docs.google.com/presentation/...'}]},
-  sops:{icon:'📄',title:'SOP / Link',fields:[{key:'icon',label:'Icon (emoji)',type:'input',placeholder:'e.g. 🚀'},{key:'name',label:'Document Name',type:'input',placeholder:'e.g. Go-Live SOP'},{key:'desc',label:'Description',type:'textarea',placeholder:'What is this?'},{key:'link',label:'Link',type:'input',placeholder:'https://docs.google.com/...'}]},
+  settings:{icon:'⚙️',title:'Setting',fields:[
+    {key:'use',label:'Use Case',type:'input',placeholder:'e.g. Block user after EOD'},
+    {key:'key',label:'Setting Key',type:'input',placeholder:'e.g. blockTransactionAfterEOD'},
+    {key:'desc',label:'Description',type:'textarea',placeholder:'What does this setting do?'},
+    {key:'val',label:'Value (if required)',type:'input',placeholder:'e.g. 1'},
+  ]},
+  urls:{icon:'🔗',title:'URL',fields:[
+    {key:'name',label:'Feature / Page Name',type:'input',placeholder:'e.g. Direct Sale'},
+    {key:'url',label:'URL Path or Full URL',type:'input',placeholder:'payments/sale  or  https://...'},
+    {key:'type',label:'Type',type:'select',options:['internal','external']},
+  ]},
+  reports:{icon:'📋',title:'Report',fields:[
+    {key:'module',label:'Module',type:'input',placeholder:'e.g. User'},
+    {key:'name',label:'Report Name',type:'input',placeholder:'e.g. User Performance Report'},
+    {key:'id',label:'Report ID',type:'input',placeholder:'e.g. 8054'},
+    {key:'note',label:'Notes',type:'input',placeholder:'Optional'},
+  ]},
+  mdms:{icon:'🗂',title:'UI / MDMS Guide',fields:[
+    {key:'type',label:'Category',type:'select',options:['UI','MDMS','UI & MDMS']},
+    {key:'task',label:'Task / Topic',type:'input',placeholder:'e.g. Add Zone and Subzone'},
+    {key:'link',label:'Resource Link',type:'input',placeholder:'https://drive.google.com/...'},
+  ]},
+  modules:{icon:'🧩',title:'Module',fields:[
+    {key:'name',label:'Module Name',type:'input',placeholder:'e.g. Geofencing'},
+    {key:'link',label:'Presentation Link',type:'input',placeholder:'https://docs.google.com/presentation/...'},
+  ]},
+  sops:{icon:'📄',title:'SOP / Link',fields:[
+    {key:'icon',label:'Icon (emoji)',type:'input',placeholder:'e.g. 🚀'},
+    {key:'name',label:'Document Name',type:'input',placeholder:'e.g. Go-Live SOP'},
+    {key:'desc',label:'Description',type:'textarea',placeholder:'What is this document?'},
+    {key:'link',label:'Link',type:'input',placeholder:'https://docs.google.com/...'},
+  ]},
 };
+
+function getAllArr(s){return{settings:allSettings(),urls:allUrls(),reports:allReports(),mdms:allMdms(),modules:allModules(),sops:allSops()}[s];}
+function getCustomArr(s){return{settings:customSettings,urls:customUrls,reports:customReports,mdms:customMdms,modules:customModules,sops:customSops}[s];}
+function getBuiltinLen(s){return{settings:SETTINGS.length,urls:URLS.length,reports:REPORTS.length,mdms:MDMS.length,modules:MODULES.length,sops:SOPS.length}[s];}
+function saveCustomArr(s,arr){
+  const map={settings:customSettings,urls:customUrls,reports:customReports,mdms:customMdms,modules:customModules,sops:customSops};
+  map[s].length=0;arr.forEach(x=>map[s].push(x));STORE.set(s,arr);
+}
+function applyOverrides(section){
+  const overrides=STORE.get('overrides_'+section,{});
+  const targets={mdms:MDMS,modules:MODULES,sops:SOPS,settings:SETTINGS,urls:URLS,reports:REPORTS};
+  if(targets[section])Object.entries(overrides).forEach(([i,obj])=>{if(targets[section][i])Object.assign(targets[section][i],obj);});
+}
+function reRender(s){const m={settings:renderSettings,urls:renderUrls,reports:renderReports,mdms:renderMdms,modules:renderModules,sops:renderSops};if(m[s])m[s]();}
+
 function openModal(mode,section,allIndex){
-  _modalSection=section;_editIndex=mode==='edit'?allIndex:null;
-  const form=FORMS[section],isEdit=mode==='edit';
+  _modalSection=section;_editIndex=null;
+  const form=FORMS[section];
   document.getElementById('modal-icon').textContent=form.icon;
+  const isEdit=mode==='edit';
+  let existing={};
+  if(isEdit){const arr=getAllArr(section);existing=arr[allIndex]||{};_editIndex=allIndex;}
   document.getElementById('modal-title-text').textContent=(isEdit?'Edit ':'Add ')+form.title;
   const deleteBtn=document.getElementById('modal-delete-btn');
   const builtin=getBuiltinLen(section);
-  deleteBtn.style.display=(isEdit&&_editIndex!==null&&_editIndex>=builtin)?'inline-flex':'none';
-  const existing=isEdit?getAllArr(section)[allIndex]||{}:{};
-  let html=isEdit&&allIndex<builtin?'<div class="callout" style="margin-bottom:14px"><strong>Built-in entry</strong> — edits saved as local overrides.</div>':'';
+  const isEditingBuiltin=isEdit&&_editIndex<builtin;
+  deleteBtn.style.display=(isEdit&&_editIndex!==null&&!isEditingBuiltin)?'inline-flex':'none';
+  let html='';
+  if(isEdit&&isEditingBuiltin)html='<div class="callout" style="margin-bottom:14px"><strong>Built-in entry</strong> — edits saved locally as overrides.</div>';
   form.fields.forEach(f=>{
     html+=`<div class="form-group"><label class="form-label">${f.label}</label>`;
-    const v=existing[f.key]||'';
-    if(f.type==='select'){html+=`<select class="form-select" id="mf-${f.key}">${f.options.map(o=>`<option ${v===o?'selected':''}>${o}</option>`).join('')}</select>`;}
-    else if(f.type==='textarea'){html+=`<textarea class="form-textarea" id="mf-${f.key}" placeholder="${f.placeholder}">${v}</textarea>`;}
-    else{html+=`<input class="form-input" id="mf-${f.key}" placeholder="${f.placeholder}" value="${v}">`;}
+    const val=existing[f.key]||'';
+    if(f.type==='select'){
+      html+=`<select class="form-select" id="mf-${f.key}">`;
+      f.options.forEach(o=>html+=`<option ${val===o?'selected':''}>${o}</option>`);
+      html+='</select>';
+    }else if(f.type==='textarea'){
+      html+=`<textarea class="form-textarea" id="mf-${f.key}" placeholder="${f.placeholder}">${val}</textarea>`;
+    }else{
+      html+=`<input class="form-input" id="mf-${f.key}" placeholder="${f.placeholder}" value="${val}">`;
+    }
     html+='</div>';
   });
   document.getElementById('modal-form-body').innerHTML=html;
   document.getElementById('entry-modal').classList.add('open');
 }
 function closeModal(){document.getElementById('entry-modal').classList.remove('open');_modalSection=null;_editIndex=null;}
+
 function saveEntry(){
-  const section=_modalSection,form=FORMS[section],obj={};
+  const section=_modalSection;
+  const form=FORMS[section];
+  const obj={};
   form.fields.forEach(f=>{const el=document.getElementById('mf-'+f.key);if(el)obj[f.key]=el.value.trim();});
-  const builtin=getBuiltinLen(section),isEdit=_editIndex!==null;
+  const builtin=getBuiltinLen(section);
+  const isEdit=_editIndex!==null;
   if(isEdit&&_editIndex<builtin){
-    const ov=STORE.get('overrides_'+section,{});
-    ov[_editIndex]={...getAllArr(section)[_editIndex],...obj};
-    STORE.set('overrides_'+section,ov);applyOverrides(section);
+    const overrides=STORE.get('overrides_'+section,{});
+    const arr=getAllArr(section);
+    overrides[_editIndex]={...arr[_editIndex],...obj};
+    STORE.set('overrides_'+section,overrides);applyOverrides(section);
   }else if(isEdit){
-    const ca=getCustomArr(section);ca[_editIndex-builtin]=obj;saveCustomArr(section,ca);
+    const customArr=getCustomArr(section);
+    customArr[_editIndex-builtin]=obj;saveCustomArr(section,customArr);
   }else{
-    const ca=getCustomArr(section);ca.push(obj);saveCustomArr(section,ca);
+    const customArr=getCustomArr(section);customArr.push(obj);saveCustomArr(section,customArr);
   }
   closeModal();reRender(section);showToast('Saved');
 }
 function deleteEntry(){
-  const section=_modalSection,builtin=getBuiltinLen(section),ca=getCustomArr(section);
-  ca.splice(_editIndex-builtin,1);saveCustomArr(section,ca);closeModal();reRender(section);showToast('Deleted');
+  const section=_modalSection;
+  const builtin=getBuiltinLen(section);
+  const customArr=getCustomArr(section);
+  customArr.splice(_editIndex-builtin,1);
+  saveCustomArr(section,customArr);closeModal();reRender(section);showToast('Deleted');
 }
-function deleteEntryDirect(section,ci){
-  if(!confirm('Delete?'))return;
-  const ca=getCustomArr(section);ca.splice(ci,1);saveCustomArr(section,ca);reRender(section);showToast('Deleted');
+function deleteEntryDirect(section,customIdx){
+  if(!confirm('Delete this entry?'))return;
+  const customArr=getCustomArr(section);customArr.splice(customIdx,1);
+  saveCustomArr(section,customArr);reRender(section);showToast('Deleted');
 }
-function editEntry(section,ai){openModal('edit',section,ai);}
+function editEntry(section,allIndex){openModal('edit',section,allIndex);}
+
 function insertAddButtons(){
-  [{secId:'settings',label:'+ Add Setting',icon:'⚙️'},{secId:'urls',label:'+ Add URL',icon:'🔗'},{secId:'reports',label:'+ Add Report',icon:'📋'},{secId:'mdms',label:'+ Add Guide',icon:'🗂'},{secId:'modules',label:'+ Add Module',icon:'🧩'},{secId:'sops',label:'+ Add SOP',icon:'📄'}].forEach(({secId,label,icon})=>{
-    const sec=document.getElementById('sec-'+secId);if(!sec||sec.querySelector('.add-row-btn'))return;
-    const btn=document.createElement('button');btn.className='add-row-btn';btn.innerHTML=`<span>${icon}</span> ${label}`;btn.onclick=()=>openModal('add',secId);sec.appendChild(btn);
+  [
+    {secId:'settings',label:'+ Add Setting',icon:'⚙️'},
+    {secId:'urls',label:'+ Add URL',icon:'🔗'},
+    {secId:'reports',label:'+ Add Report',icon:'📋'},
+    {secId:'mdms',label:'+ Add Guide',icon:'🗂'},
+    {secId:'modules',label:'+ Add Module',icon:'🧩'},
+    {secId:'sops',label:'+ Add SOP / Link',icon:'📄'},
+  ].forEach(({secId,label,icon})=>{
+    const sec=document.getElementById('sec-'+secId);
+    if(!sec||sec.querySelector('.add-row-btn'))return;
+    const btn=document.createElement('button');
+    btn.className='add-row-btn';
+    btn.innerHTML=`<span>${icon}</span> ${label}`;
+    btn.onclick=()=>openModal('add',secId);
+    sec.appendChild(btn);
   });
 }
 
-// ══ UPLOADS ════════════════════════════════════════════
+// ════════════════════════════════════════════
+// UPLOADS & LINKS
+// ════════════════════════════════════════════
 function handleFileSelect(files){
   Array.from(files).forEach(file=>{
-    const r=new FileReader();r.onload=e=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
       savedFiles.push({name:file.name,size:file.size,type:file.type,dataUrl:e.target.result,saved:new Date().toLocaleDateString()});
       STORE.set('files',savedFiles);renderFileChips();showToast('File saved: '+file.name);
-    };r.readAsDataURL(file);
+    };
+    reader.readAsDataURL(file);
   });
 }
 function handleDrop(e){e.preventDefault();document.getElementById('upload-dz').classList.remove('drag');handleFileSelect(e.dataTransfer.files);}
-function fileIcon(t){if(t.includes('pdf'))return'📄';if(t.includes('sheet')||t.includes('csv'))return'📊';if(t.includes('word')||t.includes('doc'))return'📝';if(t.includes('presentation')||t.includes('ppt'))return'📋';if(t.includes('image'))return'🖼';return'📁';}
+function fileIcon(type){if(type.includes('pdf'))return'📄';if(type.includes('sheet')||type.includes('csv')||type.includes('excel'))return'📊';if(type.includes('word')||type.includes('doc'))return'📝';if(type.includes('presentation')||type.includes('ppt'))return'📋';if(type.includes('image'))return'🖼';return'📁';}
 function renderFileChips(){
-  const el=document.getElementById('file-chips');if(!el)return;
-  el.innerHTML=savedFiles.map((f,i)=>`<div class="file-chip"><span>${fileIcon(f.type)}</span><a href="${f.dataUrl}" download="${f.name}" style="color:inherit;text-decoration:none">${f.name}</a><span style="font-size:10px;color:var(--muted)">${(f.size/1024).toFixed(0)}KB</span><button class="file-chip-del" onclick="removeFile(${i})">✕</button></div>`).join('');
+  const el=document.getElementById('file-chips');
+  if(!el)return;
+  el.innerHTML=savedFiles.map((f,i)=>`<div class="file-chip"><span>${fileIcon(f.type)}</span><a href="${f.dataUrl}" download="${f.name}" style="color:inherit;text-decoration:none">${f.name}</a><span style="color:var(--muted);font-size:10px">${(f.size/1024).toFixed(0)}KB</span><button class="file-chip-del" onclick="removeFile(${i})">✕</button></div>`).join('');
 }
 function removeFile(i){savedFiles.splice(i,1);STORE.set('files',savedFiles);renderFileChips();}
 function addLink(){
-  const l=document.getElementById('link-label-input')?.value.trim(),u=document.getElementById('link-url-input')?.value.trim();
-  if(!l||!u){showToast('Enter both label and URL',true);return;}
-  savedLinks.push({label:l,url:u,saved:new Date().toLocaleDateString()});STORE.set('links',savedLinks);
-  document.getElementById('link-label-input').value='';document.getElementById('link-url-input').value='';
+  const label=document.getElementById('link-label-input')?.value.trim();
+  const url=document.getElementById('link-url-input')?.value.trim();
+  if(!label||!url){showToast('Enter both label and URL',true);return;}
+  savedLinks.push({label,url,saved:new Date().toLocaleDateString()});
+  STORE.set('links',savedLinks);
+  document.getElementById('link-label-input').value='';
+  document.getElementById('link-url-input').value='';
   renderLinks();showToast('Link saved');
 }
 function renderLinks(){
-  const el=document.getElementById('links-list');if(!el)return;
+  const el=document.getElementById('links-list');
+  if(!el)return;
   if(!savedLinks.length){el.innerHTML='<div style="font-size:12.5px;color:var(--muted);font-style:italic;padding:8px 0">No links saved yet</div>';return;}
   el.innerHTML=savedLinks.map((l,i)=>`<div class="sop-item" style="margin-bottom:8px"><span class="sop-ic">🔗</span><div><div class="sop-name">${l.label}</div><div class="sop-desc">${l.saved}</div></div><a class="sop-link" href="${l.url}" target="_blank">Open →</a><button class="btn btn-danger btn-sm" onclick="removeLink(${i})" style="margin-left:8px">✕</button></div>`).join('');
 }
 function removeLink(i){savedLinks.splice(i,1);STORE.set('links',savedLinks);renderLinks();}
 function saveNotes(){STORE.set('notes',document.getElementById('global-notes')?.value);}
 
-// ══ SEARCH ═════════════════════════════════════════════
+// ════════════════════════════════════════════
+// SEARCH
+// ════════════════════════════════════════════
+let searchTimeout;
 function doSearch(){
   const q=(document.getElementById('search')?.value||'').trim().toLowerCase();
   if(!q){
-    const a=document.querySelector('.nav-item.active');
-    if(a)showSection(a.dataset.section,a);else showSection('home',document.querySelector('[data-section=home]'));
+    const active=document.querySelector('.nav-item.active');
+    if(active)showSection(active.dataset.section,active);
+    else showSection('home',document.querySelector('[data-section=home]'));
     return;
   }
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('visible'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('sec-search').classList.add('visible');
-  const hl=s=>String(s||'').replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
+  const hl=str=>String(str||'').replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
   const results=[];
-  allSettings().forEach(s=>{if([s.use,s.key,s.desc].some(v=>v.toLowerCase().includes(q)))results.push({sec:'⚙️ Settings',sid:'settings',label:s.use,val:s.key,detail:s.desc});});
-  allUrls().forEach(u=>{if([u.name,u.url].some(v=>v.toLowerCase().includes(q)))results.push({sec:'🔗 URLs',sid:'urls',label:u.name,val:u.url,link:u.type==='external'?u.url:null});});
-  allReports().forEach(r=>{if([r.module,r.name,r.id].some(v=>v.toLowerCase().includes(q)))results.push({sec:'📋 Reports',sid:'reports',label:r.name,val:'ID: '+r.id,detail:r.module});});
-  allMdms().forEach(m=>{if([m.type,m.task].some(v=>v.toLowerCase().includes(q)))results.push({sec:'🗂 UI & MDMS',sid:'mdms',label:m.task,val:m.type,link:m.link||null});});
-  allModules().forEach(m=>{if(m.name.toLowerCase().includes(q))results.push({sec:'🧩 Modules',sid:'modules',label:m.name,val:m.link?'Deck available':'Deck pending',link:m.link||null});});
+  allSettings().forEach(s=>{if([s.use,s.key,s.desc].some(v=>v.toLowerCase().includes(q)))results.push({section:'⚙️ Settings',sectionId:'settings',label:s.use,value:s.key,detail:s.desc});});
+  allUrls().forEach(u=>{if([u.name,u.url].some(v=>v.toLowerCase().includes(q)))results.push({section:'🔗 URLs',sectionId:'urls',label:u.name,value:u.url,link:u.type==='external'?u.url:null});});
+  allReports().forEach(r=>{if([r.module,r.name,r.id].some(v=>v.toLowerCase().includes(q)))results.push({section:'📋 Reports',sectionId:'reports',label:r.name,value:'ID: '+r.id,detail:r.module});});
+  allMdms().forEach(m=>{if([m.type,m.task].some(v=>v.toLowerCase().includes(q)))results.push({section:'🗂 UI & MDMS',sectionId:'mdms',label:m.task,value:m.type,link:m.link||null});});
+  allModules().forEach(m=>{if(m.name.toLowerCase().includes(q))results.push({section:'🧩 Modules',sectionId:'modules',label:m.name,value:m.link?'Deck available':'Deck pending',link:m.link||null});});
   const inner=document.getElementById('search-results-inner');
   if(!results.length){inner.innerHTML=`<div class="empty"><div class="empty-ic">🔍</div><div class="empty-t">No results for "${q}"</div></div>`;return;}
-  const groups={};results.forEach(r=>{if(!groups[r.sec])groups[r.sec]=[];groups[r.sec].push(r);});
+  const groups={};results.forEach(r=>{if(!groups[r.section])groups[r.section]=[];groups[r.section].push(r);});
   let html=`<div class="search-result-count">${results.length} result${results.length!==1?'s':''} for <strong style="color:var(--warm)">"${q}"</strong></div>`;
   for(const[sec,items]of Object.entries(groups)){
     html+=`<div class="result-group-title">${sec}</div>`;
-    items.forEach(item=>{html+=`<div class="result-row" onclick="showSection('${item.sid}',document.querySelector('[data-section=${item.sid}]'))"><div class="result-section">${sec}</div><div class="result-label">${hl(item.label)}</div><div class="result-value">${hl(item.val||'')}${item.detail?' · '+hl(item.detail):''}${item.link?` · <a class="link-val" href="${item.link}" target="_blank" onclick="event.stopPropagation()">Open →</a>`:''}</div></div>`;});
+    items.forEach(item=>{
+      html+=`<div class="result-row" onclick="showSection('${item.sectionId}',document.querySelector('[data-section=${item.sectionId}]'))">
+        <div class="result-section">${sec}</div>
+        <div class="result-label">${hl(item.label)}</div>
+        <div class="result-value">${hl(item.value||'')}${item.detail?' · '+hl(item.detail):''}${item.link?` · <a class="link-val" href="${item.link}" target="_blank" onclick="event.stopPropagation()">Open →</a>`:''}</div>
+      </div>`;
+    });
   }
   inner.innerHTML=html;
 }
 
-// ══ INIT ═══════════════════════════════════════════════
+// ════════════════════════════════════════════
+// HOME QUICK REF
+// ════════════════════════════════════════════
+function renderQR(){
+  const qg=document.getElementById('qr-grid');
+  if(!qg)return;
+  qg.innerHTML=QR_ITEMS.map(q=>`<div class="qr-card"><div class="qr-q">${q.q}</div><div class="qr-a">${q.a}</div></div>`).join('');
+}
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded',function(){
   ['settings','urls','reports','mdms','modules','sops'].forEach(s=>applyOverrides(s));
   renderSettings();renderUrls();renderReports();renderMdms();renderModules();renderSops();
-  renderQR();renderPending();renderFileChips();renderLinks();
+  renderPending();renderQR();
+  renderFileChips();renderLinks();
   const notes=STORE.get('notes','');
-  const notesEl=document.getElementById('global-notes');if(notesEl)notesEl.value=notes;
+  const notesEl=document.getElementById('global-notes');
+  if(notesEl)notesEl.value=notes;
   insertAddButtons();
-  const se=document.getElementById('search');
-  if(se)se.addEventListener('input',()=>{clearTimeout(searchTimeout);searchTimeout=setTimeout(doSearch,150);});
+  const searchEl=document.getElementById('search');
+  if(searchEl)searchEl.addEventListener('input',()=>{clearTimeout(searchTimeout);searchTimeout=setTimeout(doSearch,150);});
   const em=document.getElementById('entry-modal');
   if(em)em.addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
 });
